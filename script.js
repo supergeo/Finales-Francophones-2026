@@ -173,28 +173,72 @@ function addMsg(type, text) {
   assistantLog.scrollTop = assistantLog.scrollHeight;
 }
 
+// --- SMART SEARCH AMÉLIORÉ ---
 function smartSearch(query) {
   const q = query.toLowerCase();
   const all = [...samediMatches, ...dimancheMatches];
 
-  // 1) Recherche par équipe
+  // Détection équipe
   const team = equipes.find(e => q.includes(e.toLowerCase()));
-  if (team) return all.filter(m => m.teams.toLowerCase().includes(team.toLowerCase()));
 
-  // 2) Recherche par terrain
+  // Détection catégorie
+  const catMatch = q.match(/u\d{2}/);
+  const cat = catMatch ? catMatch[0] : null;
+
+  // Détection finale
+  const isFinale = q.includes("finale");
+
+  // FINALE + CATEGORIE
+  if (isFinale && cat) {
+    return all.filter(m =>
+      m.teams.toLowerCase().includes("finale") &&
+      m.teams.toLowerCase().includes(cat)
+    );
+  }
+
+  // FINALE + EQUIPE
+  if (isFinale && team) {
+    return all.filter(m =>
+      m.teams.toLowerCase().includes("finale") &&
+      m.teams.toLowerCase().includes(team.toLowerCase())
+    );
+  }
+
+  // FINALE seule
+  if (isFinale) {
+    return all.filter(m =>
+      m.teams.toLowerCase().includes("finale")
+    );
+  }
+
+  // Recherche équipe
+  if (team) {
+    return all.filter(m =>
+      m.teams.toLowerCase().includes(team.toLowerCase())
+    );
+  }
+
+  // Recherche terrain
   const terrains = ["t1","t2","t3","t4","t5","t6","t7","t8"];
   const terrain = terrains.find(t => q.includes(t));
-  if (terrain) return all.filter(m => m.terrain.toLowerCase().includes(terrain));
+  if (terrain) {
+    return all.filter(m =>
+      m.terrain.toLowerCase().includes(terrain)
+    );
+  }
 
-  // 3) Recherche par heure
+  // Recherche heure
   const hourMatch = q.match(/\b(\d{1,2}h\d{0,2})\b/);
   if (hourMatch) {
-    return all.filter(m => m.time.toLowerCase().includes(hourMatch[1]));
+    return all.filter(m =>
+      m.time.toLowerCase().includes(hourMatch[1])
+    );
   }
 
   return [];
 }
 
+// --- Assistant ---
 function handleAssistantQuestion() {
   const q = assistantInput.value.trim();
   if (!q) return;
@@ -204,17 +248,22 @@ function handleAssistantQuestion() {
   const results = smartSearch(q);
 
   if (results.length > 0) {
-    const first = results[0];
-    addMsg(
-      "bot",
-      `Je trouve : ${first.teams} à ${first.time} sur ${first.terrain}.`
-    );
-  } else {
-    addMsg(
-      "bot",
-      "Je ne trouve pas directement. Essaie avec le nom d’une équipe, un terrain ou une heure (ex: Waremme, T3, 9h)."
-    );
+    if (results.length === 1) {
+      const m = results[0];
+      addMsg("bot", `Je trouve : ${m.teams} à ${m.time} sur ${m.terrain}.`);
+    } else {
+      addMsg("bot", `J’ai trouvé ${results.length} matchs :`);
+      results.forEach(m => {
+        addMsg("bot", `${m.teams} – ${m.time} – ${m.terrain}`);
+      });
+    }
+    return;
   }
+
+  addMsg(
+    "bot",
+    "Je ne trouve pas directement. Essaie avec une équipe, une catégorie, une finale, un terrain ou une heure."
+  );
 }
 
 assistantSend.addEventListener("click", handleAssistantQuestion);
