@@ -1,245 +1,230 @@
-// --- Données matches (extraits des PDF, simplifiés) ---
-// Tu pourras en ajouter dans admin plus tard si besoin.
+// Gestion des panneaux (cartes + icônes)
+const panels = {
+  samedi: document.getElementById("panel-samedi"),
+  dimanche: document.getElementById("panel-dimanche"),
+  terrains: document.getElementById("panel-terrains"),
+  infos: document.getElementById("panel-infos"),
+  categories: document.getElementById("panel-categories"),
+  reglement: document.getElementById("panel-reglement"),
+  contact: document.getElementById("panel-contact"),
+};
 
-const samediMatches = [
-  { time: "9h00", terrain: "T1", teams: "Waremme - Chaumont", extra: "Hall 1" },
-  { time: "9h00", terrain: "T2", teams: "Nalinnes - Le Roux", extra: "Hall 1" },
-  { time: "9h00", terrain: "T3", teams: "Thimister - Romedenne", extra: "Hall 2" },
-  { time: "9h00", terrain: "T4", teams: "Tchalou - BEVC", extra: "Hall 2" },
-  { time: "9h00", terrain: "T5", teams: "Tchalou - Waremme", extra: "Hall 2" },
-  { time: "9h00", terrain: "T6", teams: "Nalinnes - F Uccle", extra: "Hall ADEPS" },
-  { time: "9h00", terrain: "T7", teams: "Jemeppe - Waremme", extra: "Hall ADEPS" },
-  { time: "9h00", terrain: "T8", teams: "Chaumont - Romedenne", extra: "Hall ADEPS" },
-  { time: "10h15", terrain: "T1", teams: "Nalinnes - Waremme", extra: "" },
-  { time: "10h15", terrain: "T2", teams: "Le Roux - Chaumont", extra: "" },
-  { time: "11h30", terrain: "T1", teams: "Chaumont - Nalinnes", extra: "" },
-  { time: "11h30", terrain: "T2", teams: "Waremme - Le Roux", extra: "" },
-  { time: "15h30", terrain: "T1/T2", teams: "Finale U17", extra: "T1-T2 central" },
-  { time: "18h00", terrain: "T1/T2", teams: "3e place U19G", extra: "" },
-  { time: "19h30", terrain: "T1/T2", teams: "Finale U19G", extra: "" }
-];
+function showPanel(key) {
+  Object.values(panels).forEach((p) => p.classList.remove("active"));
+  if (panels[key]) {
+    panels[key].classList.add("active");
+  }
+}
 
-const dimancheMatches = [
-  { time: "9h00", terrain: "T1", teams: "Thimister - Limal", extra: "Hall 1" },
-  { time: "9h00", terrain: "T2", teams: "Gedinne - Tchalou", extra: "Hall 1" },
-  { time: "9h00", terrain: "T3", teams: "Waremme - Chaumont", extra: "Hall 2" },
-  { time: "9h00", terrain: "T5", teams: "Tchalou - Ciney", extra: "Hall 2" },
-  { time: "9h00", terrain: "T6", teams: "Waremme - Namur", extra: "Hall ADEPS" },
-  { time: "9h00", terrain: "T7", teams: "Chaumont - La Louvière", extra: "Hall ADEPS" },
-  { time: "9h00", terrain: "T8", teams: "Bertrix - S Eupen", extra: "Hall ADEPS" },
-  { time: "15h00", terrain: "T1/T2", teams: "Finale U15 F", extra: "" },
-  { time: "17h00", terrain: "T1/T2", teams: "Finale U17 G", extra: "" },
-  { time: "19h30", terrain: "T1/T2", teams: "Finale U19 F", extra: "" }
-];
-
-const categories = [
-  { label: "Pupilles U11 Garçons", filet: "2,10 m", matchs: 6 },
-  { label: "Min U13 Filles", filet: "2,10 m", matchs: 11 },
-  { label: "Cadets U15 Garçons", filet: "2,24 m", matchs: 10 },
-  { label: "Scol U17 Filles", filet: "2,18 m", matchs: 11 },
-  { label: "Juniors U19 Garçons", filet: "2,43 m", matchs: 11 },
-  { label: "Pupilles U11 Filles", filet: "2,10 m", matchs: 11 },
-  { label: "Min U13 Garçons", filet: "2,14 m", matchs: 11 },
-  { label: "Cadettes U15 Filles", filet: "2,14 m", matchs: 11 },
-  { label: "Scol U17 Garçons", filet: "2,35 m", matchs: 14 },
-  { label: "Juniors U19 Filles", filet: "2,24 m", matchs: 11 }
-];
-
-// Règles personnalisées assistant (admin)
-let assistantRules = [];
-
-// Message important (admin)
-let importantMessage = "";
-
-// --- Navigation sections ---
-
-const navButtons = document.querySelectorAll("nav button, .card-btn");
-const sections = document.querySelectorAll(".section");
-
-navButtons.forEach(btn => {
+document.querySelectorAll(".card").forEach((btn) => {
   btn.addEventListener("click", () => {
-    const target = btn.getAttribute("data-section");
-    if (!target) return;
-    sections.forEach(sec => sec.classList.remove("active"));
-    document.getElementById(target).classList.add("active");
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    const section = btn.getAttribute("data-section");
+    showPanel(section);
   });
 });
 
-// --- Rendu des matchs ---
+document.querySelectorAll(".icon-btn").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const section = btn.getAttribute("data-section");
+    showPanel(section);
+  });
+});
 
-function renderMatches(list, containerId, filterValue = "") {
-  const container = document.getElementById(containerId);
-  container.innerHTML = "";
-  const filter = filterValue.toLowerCase();
+// ----------------------
+// Assistant intelligent
+// ----------------------
+const form = document.getElementById("assistant-form");
+const input = document.getElementById("assistant-input");
+const messagesBox = document.getElementById("assistant-messages");
 
-  list
-    .filter(m => {
-      if (!filter) return true;
-      return (
-        m.time.toLowerCase().includes(filter) ||
-        m.terrain.toLowerCase().includes(filter) ||
-        m.teams.toLowerCase().includes(filter)
+// mémoire courte pour les questions ambiguës
+let pendingClarification = null; // { type: 'finale', data: {...} }
+
+function addMessage(text, from = "bot") {
+  const div = document.createElement("div");
+  div.classList.add("msg", from === "bot" ? "msg-bot" : "msg-user");
+  div.innerHTML = text;
+  messagesBox.appendChild(div);
+  messagesBox.scrollTop = messagesBox.scrollHeight;
+}
+
+// petites données horaires simplifiées
+const finalesData = {
+  samedi: {
+    U11G: "Finales U11 garçons à partir de 9h00 (samedi).",
+    U13F: "Finales U13 filles en fin de matinée (samedi).",
+    U15G: "Finales U15 garçons début d’après-midi (samedi).",
+    U17F: "Finales U17 filles milieu d’après-midi (samedi).",
+    U19G: "Finales U19 garçons fin d’après-midi (samedi).",
+  },
+  dimanche: {
+    U11F: "Finales U11 filles à partir de 9h00 (dimanche).",
+    U13G: "Finales U13 garçons en fin de matinée (dimanche).",
+    U15F: "Finales U15 filles début d’après-midi (dimanche).",
+    U17G: "Finales U17 garçons milieu d’après-midi (dimanche).",
+    U19F: "Finales U19 filles fin d’après-midi (dimanche).",
+  },
+};
+
+function detectCategorie(text) {
+  const t = text.toUpperCase();
+
+  if (t.includes("U11") && t.includes("GAR") || t.includes("U11 G")) return "U11G";
+  if (t.includes("U11") && t.includes("FIL") || t.includes("U11 F")) return "U11F";
+
+  if (t.includes("U13") && t.includes("GAR") || t.includes("U13 G")) return "U13G";
+  if (t.includes("U13") && t.includes("FIL") || t.includes("U13 F")) return "U13F";
+
+  if (t.includes("U15") && t.includes("GAR") || t.includes("U15 G")) return "U15G";
+  if (t.includes("U15") && t.includes("FIL") || t.includes("U15 F")) return "U15F";
+
+  if (t.includes("U17") && t.includes("GAR") || t.includes("U17 G")) return "U17G";
+  if (t.includes("U17") && t.includes("FIL") || t.includes("U17 F")) return "U17F";
+
+  if (t.includes("U19") && t.includes("GAR") || t.includes("U19 G")) return "U19G";
+  if (t.includes("U19") && t.includes("FIL") || t.includes("U19 F")) return "U19F";
+
+  // si juste "U11", "U13", etc. sans genre
+  if (t.includes("U11")) return "U11";
+  if (t.includes("U13")) return "U13";
+  if (t.includes("U15")) return "U15";
+  if (t.includes("U17")) return "U17";
+  if (t.includes("U19")) return "U19";
+
+  return null;
+}
+
+function handleFinaleQuestion(text) {
+  const t = text.toLowerCase();
+  const categorie = detectCategorie(text);
+
+  // pas de catégorie du tout -> demander précision
+  if (!categorie) {
+    pendingClarification = { type: "finale", data: {} };
+    addMessage(
+      "Tu parles de quelle finale exactement ? U11, U13, U15, U17 ou U19, et filles ou garçons ?"
+    );
+    return;
+  }
+
+  // catégorie sans genre (ex: "U17") -> demander genre
+  if (["U11", "U13", "U15", "U17", "U19"].includes(categorie)) {
+    pendingClarification = { type: "finale-genre", data: { base: categorie } };
+    addMessage(
+      `Pour la catégorie ${categorie}, tu parles des filles ou des garçons ?`
+    );
+    return;
+  }
+
+  // catégorie complète (ex: U17G, U15F)
+  let info = null;
+  if (finalesData.samedi[categorie]) {
+    info = finalesData.samedi[categorie];
+  } else if (finalesData.dimanche[categorie]) {
+    info = finalesData.dimanche[categorie];
+  }
+
+  if (info) {
+    addMessage(info);
+  } else {
+    addMessage(
+      "Je ne trouve pas l’horaire exact pour cette finale, mais les informations détaillées sont affichées sur place."
+    );
+  }
+}
+
+function handleClarification(text) {
+  if (!pendingClarification) return false;
+
+  const t = text.toLowerCase();
+
+  if (pendingClarification.type === "finale") {
+    // l’utilisateur répond par ex : "U17 garçons"
+    pendingClarification = null;
+    handleFinaleQuestion(text);
+    return true;
+  }
+
+  if (pendingClarification.type === "finale-genre") {
+    const base = pendingClarification.data.base; // ex: "U17"
+    let cat = null;
+
+    if (t.includes("gar") || t.includes("masc") || t.includes("g")) {
+      cat = base + "G";
+    } else if (t.includes("fil") || t.includes("fem") || t.includes("f")) {
+      cat = base + "F";
+    }
+
+    pendingClarification = null;
+
+    if (cat) {
+      handleFinaleQuestion(cat);
+    } else {
+      addMessage(
+        "Je n’ai pas bien compris, tu peux préciser si c’est pour les filles ou les garçons ?"
       );
-    })
-    .forEach(m => {
-      const div = document.createElement("div");
-      div.className = "match-card";
-      div.innerHTML = `
-        <div class="match-time">${m.time} – ${m.terrain}</div>
-        <div class="match-teams">${m.teams}</div>
-        ${m.extra ? `<div class="match-extra">${m.extra}</div>` : ""}
-      `;
-      container.appendChild(div);
-    });
+    }
+    return true;
+  }
+
+  return false;
 }
 
-renderMatches(samediMatches, "samedi-list");
-renderMatches(dimancheMatches, "dimanche-list");
+function handleGenericQuestion(text) {
+  const t = text.toLowerCase();
 
-document.getElementById("filter-samedi").addEventListener("input", e => {
-  renderMatches(samediMatches, "samedi-list", e.target.value);
-});
+  if (t.includes("adresse") || t.includes("où") && t.includes("spa")) {
+    addMessage(
+      "Les finales se jouent à La Fraineuse : Avenue Amédée Hesse 41, 4900 Spa."
+    );
+    return;
+  }
 
-document.getElementById("filter-dimanche").addEventListener("input", e => {
-  renderMatches(dimancheMatches, "dimanche-list", e.target.value);
-});
+  if (t.includes("prix") || t.includes("entrée") || t.includes("entree")) {
+    addMessage("L’entrée est à 5€ pour la journée.");
+    return;
+  }
 
-// --- Rendu catégories ---
+  if (t.includes("parking")) {
+    addMessage(
+      "Un parking est disponible à proximité du site, avec une signalisation sur place."
+    );
+    return;
+  }
 
-const catContainer = document.getElementById("categories-list");
-categories.forEach(c => {
-  const div = document.createElement("div");
-  div.className = "card";
-  div.innerHTML = `
-    <h3>${c.label}</h3>
-    <p>Hauteur de filet : <strong>${c.filet}</strong></p>
-    <p>Nombre de matchs : ${c.matchs}</p>
-  `;
-  catContainer.appendChild(div);
-});
+  if (t.includes("buvette") || t.includes("boire") || t.includes("manger")) {
+    addMessage(
+      "Une buvette et une petite restauration sont disponibles sur place toute la journée."
+    );
+    return;
+  }
 
-// --- Assistant ---
-
-const assistantLog = document.getElementById("assistant-log");
-const assistantInput = document.getElementById("assistant-question");
-const assistantSend = document.getElementById("assistant-send");
-
-function addMsg(type, text) {
-  const div = document.createElement("div");
-  div.className = `msg ${type}`;
-  div.innerHTML = `<span>${text}</span>`;
-  assistantLog.appendChild(div);
-  assistantLog.scrollTop = assistantLog.scrollHeight;
-}
-
-function findMatchByTeamOrTime(query) {
-  const q = query.toLowerCase();
-  const all = [...samediMatches, ...dimancheMatches];
-  return all.filter(m =>
-    m.teams.toLowerCase().includes(q) ||
-    m.terrain.toLowerCase().includes(q) ||
-    m.time.toLowerCase().includes(q)
+  addMessage(
+    "Je ne suis pas sûr de bien comprendre ta question. Tu peux reformuler ou préciser un peu ?"
   );
 }
 
-function handleAssistantQuestion() {
-  const q = assistantInput.value.trim();
-  if (!q) return;
-  addMsg("user", q);
-  assistantInput.value = "";
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const text = input.value.trim();
+  if (!text) return;
 
-  // Règles admin d'abord
-  for (const rule of assistantRules) {
-    if (q.toLowerCase().includes(rule.keyword.toLowerCase())) {
-      addMsg("bot", rule.answer);
-      return;
-    }
+  addMessage(text, "user");
+  input.value = "";
+
+  // si on attend une précision
+  if (handleClarification(text)) {
+    return;
   }
 
-  // Recherche match
-  const results = findMatchByTeamOrTime(q);
-  if (results.length > 0) {
-    const first = results[0];
-    addMsg(
-      "bot",
-      `Je vois un match : ${first.teams} à ${first.time} sur ${first.terrain}.`
-    );
-  } else {
-    addMsg(
-      "bot",
-      "Je ne trouve pas directement, essaie avec le nom d’une équipe ou un terrain (ex: Waremme, T3, 9h)."
-    );
+  const t = text.toLowerCase();
+
+  // questions sur les finales
+  if (t.includes("finale") || t.includes("finales")) {
+    handleFinaleQuestion(text);
+    return;
   }
-}
 
-assistantSend.addEventListener("click", handleAssistantQuestion);
-assistantInput.addEventListener("keydown", e => {
-  if (e.key === "Enter") handleAssistantQuestion();
-});
-
-// --- Admin ---
-
-const adminBtn = document.getElementById("admin-btn");
-const adminModal = document.getElementById("admin-modal");
-const adminCodeInput = document.getElementById("admin-code");
-const adminCancel = document.getElementById("admin-cancel");
-const adminValidate = document.getElementById("admin-validate");
-const adminError = document.getElementById("admin-error");
-const adminPanel = document.getElementById("admin-panel");
-const adminClose = document.getElementById("admin-close");
-
-const adminMessageInput = document.getElementById("admin-message");
-const adminSaveMessage = document.getElementById("admin-save-message");
-const adminKeywordInput = document.getElementById("admin-keyword");
-const adminAnswerInput = document.getElementById("admin-answer");
-const adminSaveAnswer = document.getElementById("admin-save-answer");
-const importantBanner = document.getElementById("important-banner");
-
-const ADMIN_CODE = "175";
-
-adminBtn.addEventListener("click", () => {
-  adminModal.classList.remove("hidden");
-  adminCodeInput.value = "";
-  adminError.textContent = "";
-  adminCodeInput.focus();
-});
-
-adminCancel.addEventListener("click", () => {
-  adminModal.classList.add("hidden");
-});
-
-adminValidate.addEventListener("click", () => {
-  if (adminCodeInput.value === ADMIN_CODE) {
-    adminModal.classList.add("hidden");
-    adminPanel.classList.remove("hidden");
-  } else {
-    adminError.textContent = "Code incorrect.";
-  }
-});
-
-adminClose.addEventListener("click", () => {
-  adminPanel.classList.add("hidden");
-});
-
-// Message important
-adminSaveMessage.addEventListener("click", () => {
-  importantMessage = adminMessageInput.value.trim();
-  if (importantMessage) {
-    importantBanner.textContent = importantMessage;
-    importantBanner.classList.remove("hidden");
-  } else {
-    importantBanner.classList.add("hidden");
-  }
-});
-
-// Règle assistant
-adminSaveAnswer.addEventListener("click", () => {
-  const keyword = adminKeywordInput.value.trim();
-  const answer = adminAnswerInput.value.trim();
-  if (!keyword || !answer) return;
-  assistantRules.push({ keyword, answer });
-  adminKeywordInput.value = "";
-  adminAnswerInput.value = "";
-  alert("Règle enregistrée pour l’assistant.");
+  // questions plus générales
+  handleGenericQuestion(text);
 });

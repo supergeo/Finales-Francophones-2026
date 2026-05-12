@@ -7,150 +7,162 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header class="header">
-    <div class="logo">SPA VOLLEY</div>
-    <h1>Finales Francophones Jeunes 2026</h1>
-    <p>16 & 17 mai – La Fraineuse, Spa</p>
-  </header>
+  <div class="app">
 
-  <nav class="nav">
-    <button data-section="accueil">Accueil</button>
-    <button data-section="samedi">Samedi</button>
-    <button data-section="dimanche">Dimanche</button>
-    <button data-section="terrains">Terrains</button>
-    <button data-section="categories">Catégories</button>
-    <button data-section="infos">Infos</button>
-    <button data-section="assistant">Assistant</button>
-  </nav>
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-text">
+        <h1>Finales Francophones Jeunes 2026</h1>
+        <p>16 &amp; 17 mai – La Fraineuse, Spa</p>
+      </div>
+    </header>
 
-  <main>
-    <!-- ACCUEIL -->
-    <section id="accueil" class="section active">
-      <h2>Bienvenue</h2>
-      <p>Finales Francophones Jeunes 2026 – Spa Volley Club.</p>
-      <div class="grid-buttons">
-        <button data-section="samedi" class="card-btn">Horaires samedi</button>
-        <button data-section="dimanche" class="card-btn">Horaires dimanche</button>
-        <button data-section="terrains" class="card-btn">Terrains</button>
-        <button data-section="infos" class="card-btn">Infos pratiques</button>
-      </div>
-    </section>
+    <!-- BLOCS PRINCIPAUX -->
+    <main class="main">
 
-    <!-- SAMEDI -->
-    <section id="samedi" class="section">
-      <h2>Horaires – Samedi 16 mai</h2>
-      <div class="filters">
-        <input type="text" id="filter-samedi" placeholder="Filtrer par équipe ou terrain..." />
-      </div>
-      <div id="samedi-list" class="match-list"></div>
-    </section>
+      <section class="cards-grid">
+        <button class="card" data-section="samedi">
+          <h2>Horaires samedi</h2>
+          <p>Matches &amp; finales du 16 mai</p>
+        </button>
 
-    <!-- DIMANCHE -->
-    <section id="dimanche" class="section">
-      <h2>Horaires – Dimanche 17 mai</h2>
-      <div class="filters">
-        <input type="text" id="filter-dimanche" placeholder="Filtrer par équipe ou terrain..." />
-      </div>
-      <div id="dimanche-list" class="match-list"></div>
-    </section>
+        <button class="card" data-section="dimanche">
+          <h2>Horaires dimanche</h2>
+          <p>Matches &amp; finales du 17 mai</p>
+        </button>
 
-    <!-- TERRAINS -->
-    <section id="terrains" class="section">
-      <h2>Terrains & Halls</h2>
-      <div class="card">
-        <h3>Hall 1</h3>
-        <p>Terrains : T1, T2</p>
-      </div>
-      <div class="card">
-        <h3>Hall 2</h3>
-        <p>Terrains : T3, T4, T5</p>
-      </div>
-      <div class="card">
-        <h3>Hall ADEPS</h3>
-        <p>Terrains : T6, T7, T8</p>
-      </div>
-      <p class="note">T1–T2 : U11 • T3–T8 : U13 à U19</p>
-    </section>
+        <button class="card" data-section="terrains">
+          <h2>Terrains</h2>
+          <p>Répartition des matchs par salle</p>
+        </button>
 
-    <!-- CATEGORIES -->
-    <section id="categories" class="section">
-      <h2>Catégories & hauteurs de filet</h2>
-      <div class="card-list" id="categories-list"></div>
-    </section>
+        <button class="card" data-section="infos">
+          <h2>Infos pratiques</h2>
+          <p>Accès, parking, buvette, etc.</p>
+        </button>
+      </section>
 
-    <!-- INFOS -->
-    <section id="infos" class="section">
-      <h2>Infos pratiques</h2>
-      <div class="card">
-        <h3>Adresse</h3>
-        <p>Avenue Amédée Hesse 39, La Fraineuse, 4900 Spa</p>
-      </div>
-      <div class="card">
-        <h3>Organisation</h3>
-        <p>Spa Volley Club – Finales Francophones Jeunes 2026.</p>
-      </div>
-      <div class="card">
-        <h3>Rappel</h3>
-        <p>U11 & U15 : 2 sets secs. T3 à T8 : OK pour U15, U17, U19.</p>
-      </div>
-    </section>
+      <!-- CONTENU DÉTAILLÉ -->
+      <section class="panel" id="panel-samedi">
+        <h2>Horaires samedi 16 mai</h2>
+        <p class="panel-intro">
+          Finales garçons U11, U15, U19 – filles U13, U17.
+        </p>
+        <ul class="list">
+          <li><strong>U11 G :</strong> finales à partir de 9h00</li>
+          <li><strong>U13 F :</strong> finales en fin de matinée</li>
+          <li><strong>U15 G :</strong> finales début d’après-midi</li>
+          <li><strong>U17 F :</strong> finales milieu d’après-midi</li>
+          <li><strong>U19 G :</strong> finales fin d’après-midi</li>
+        </ul>
+        <p class="note">Les horaires précis sont affichés sur place et peuvent légèrement varier.</p>
+      </section>
 
-    <!-- ASSISTANT -->
-    <section id="assistant" class="section">
-      <h2>Assistant questions</h2>
-      <div class="assistant-box">
-        <div id="assistant-log" class="assistant-log"></div>
-        <div class="assistant-input">
-          <input type="text" id="assistant-question" placeholder="Pose ta question (ex: Quand joue Waremme ?)"/>
-          <button id="assistant-send">Envoyer</button>
+      <section class="panel" id="panel-dimanche">
+        <h2>Horaires dimanche 17 mai</h2>
+        <p class="panel-intro">
+          Finales garçons U13, U17 – filles U11, U15, U19.
+        </p>
+        <ul class="list">
+          <li><strong>U11 F :</strong> finales à partir de 9h00</li>
+          <li><strong>U13 G :</strong> finales en fin de matinée</li>
+          <li><strong>U15 F :</strong> finales début d’après-midi</li>
+          <li><strong>U17 G :</strong> finales milieu d’après-midi</li>
+          <li><strong>U19 F :</strong> finales fin d’après-midi</li>
+        </ul>
+        <p class="note">Les horaires précis sont affichés sur place et peuvent légèrement varier.</p>
+      </section>
+
+      <section class="panel" id="panel-terrains">
+        <h2>Terrains</h2>
+        <ul class="list">
+          <li><strong>T1 / T2 :</strong> principales finales</li>
+          <li><strong>T3 / T4 :</strong> matches de classement</li>
+          <li><strong>Signalisation :</strong> panneaux sur place + affichage à l’entrée</li>
+        </ul>
+        <p class="note">Les terrains peuvent changer en fonction du déroulement de la journée.</p>
+      </section>
+
+      <section class="panel" id="panel-infos">
+        <h2>Infos pratiques</h2>
+        <ul class="list">
+          <li><strong>Adresse :</strong> Avenue Amédée Hesse 41, 4900 Spa</li>
+          <li><strong>Entrée :</strong> 5€</li>
+          <li><strong>Buvette &amp; petite restauration :</strong> sur place toute la journée</li>
+          <li><strong>Parking :</strong> signalé à proximité du site</li>
+        </ul>
+      </section>
+
+      <!-- ICÔNES BAS -->
+      <section class="bottom-icons">
+        <button class="icon-btn" data-section="categories">
+          <span class="icon-circle">🏐</span>
+          <span>Catégories</span>
+        </button>
+        <button class="icon-btn" data-section="reglement">
+          <span class="icon-circle">📜</span>
+          <span>Règlement</span>
+        </button>
+        <button class="icon-btn" data-section="contact">
+          <span class="icon-circle">📞</span>
+          <span>Contact</span>
+        </button>
+      </section>
+
+      <section class="panel" id="panel-categories">
+        <h2>Catégories</h2>
+        <ul class="list">
+          <li>U11 filles &amp; garçons</li>
+          <li>U13 filles &amp; garçons</li>
+          <li>U15 filles &amp; garçons</li>
+          <li>U17 filles &amp; garçons</li>
+          <li>U19 filles &amp; garçons</li>
+        </ul>
+      </section>
+
+      <section class="panel" id="panel-reglement">
+        <h2>Règlement</h2>
+        <ul class="list">
+          <li>Règlement officiel des Finales francophones.</li>
+          <li>Fair-play et respect des arbitres, coachs et joueurs.</li>
+          <li>Accès aux terrains réservé aux équipes et officiels.</li>
+        </ul>
+      </section>
+
+      <section class="panel" id="panel-contact">
+        <h2>Contact</h2>
+        <p>Pour toute question officielle :</p>
+        <ul class="list">
+          <li><strong>Club :</strong> Volley Club Spa</li>
+          <li><strong>Email :</strong> info@spavolley.be (exemple)</li>
+        </ul>
+      </section>
+
+      <!-- ASSISTANT -->
+      <section class="assistant">
+        <h2>Poser une question</h2>
+        <div class="assistant-box">
+          <div id="assistant-messages" class="assistant-messages">
+            <div class="msg msg-bot">
+              Bonjour 👋 Je suis l’assistant des Finales à Spa.  
+              Pose-moi une question, par exemple :  
+              <em>“À quelle heure est la finale U17 ?”</em>
+            </div>
+          </div>
+          <form id="assistant-form" class="assistant-form">
+            <input
+              type="text"
+              id="assistant-input"
+              placeholder="Écris ta question ici…"
+              autocomplete="off"
+            />
+            <button type="submit">Envoyer</button>
+          </form>
         </div>
-      </div>
-      <p class="note">L’assistant répond sur base du programme officiel.</p>
-    </section>
-  </main>
+      </section>
 
-  <!-- BOUTON ADMIN -->
-  <button id="admin-btn" class="admin-btn">Admin</button>
-
-  <!-- MODAL CODE ADMIN -->
-  <div id="admin-modal" class="modal hidden">
-    <div class="modal-content">
-      <h3>Accès administrateur</h3>
-      <p>Entrer le code :</p>
-      <input type="password" id="admin-code" maxlength="4" />
-      <div class="modal-actions">
-        <button id="admin-cancel">Annuler</button>
-        <button id="admin-validate">Valider</button>
-      </div>
-      <p id="admin-error" class="error-msg"></p>
-    </div>
+    </main>
   </div>
-
-  <!-- PANEL ADMIN -->
-  <div id="admin-panel" class="modal hidden">
-    <div class="modal-content large">
-      <h3>Panneau admin – Spa Volley</h3>
-      <p class="note">Code valide. Tu peux ajuster les infos visibles sur le site.</p>
-
-      <div class="admin-section">
-        <h4>Message important</h4>
-        <textarea id="admin-message" placeholder="Ex: Retard de 15 minutes sur le terrain 4..."></textarea>
-        <button id="admin-save-message">Mettre à jour le message</button>
-      </div>
-
-      <div class="admin-section">
-        <h4>Réponse personnalisée de l’assistant</h4>
-        <input type="text" id="admin-keyword" placeholder="Mot-clé (ex: retard, finale U19...)" />
-        <textarea id="admin-answer" placeholder="Réponse que l’assistant donnera si la question contient ce mot-clé."></textarea>
-        <button id="admin-save-answer">Enregistrer la règle</button>
-      </div>
-
-      <button id="admin-close">Fermer</button>
-    </div>
-  </div>
-
-  <!-- MESSAGE IMPORTANT GLOBAL -->
-  <div id="important-banner" class="important-banner hidden"></div>
 
   <script src="script.js"></script>
 </body>
