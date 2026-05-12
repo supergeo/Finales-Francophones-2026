@@ -184,4 +184,108 @@ function smartSearch(query) {
   // 2) Recherche par terrain
   const terrains = ["t1","t2","t3","t4","t5","t6","t7","t8"];
   const terrain = terrains.find(t => q.includes(t));
-  if (terrain) return all.filter(m => m.terrain.toLowerCase() ===
+  if (terrain) return all.filter(m => m.terrain.toLowerCase().includes(terrain));
+
+  // 3) Recherche par heure
+  const hourMatch = q.match(/\b(\d{1,2}h\d{0,2})\b/);
+  if (hourMatch) {
+    return all.filter(m => m.time.toLowerCase().includes(hourMatch[1]));
+  }
+
+  return [];
+}
+
+function handleAssistantQuestion() {
+  const q = assistantInput.value.trim();
+  if (!q) return;
+  addMsg("user", q);
+  assistantInput.value = "";
+
+  const results = smartSearch(q);
+
+  if (results.length > 0) {
+    const first = results[0];
+    addMsg(
+      "bot",
+      `Je trouve : ${first.teams} à ${first.time} sur ${first.terrain}.`
+    );
+  } else {
+    addMsg(
+      "bot",
+      "Je ne trouve pas directement. Essaie avec le nom d’une équipe, un terrain ou une heure (ex: Waremme, T3, 9h)."
+    );
+  }
+}
+
+assistantSend.addEventListener("click", handleAssistantQuestion);
+assistantInput.addEventListener("keydown", e => {
+  if (e.key === "Enter") handleAssistantQuestion();
+});
+
+// --- Admin ---
+let assistantRules = [];
+let importantMessage = "";
+
+const adminBtn = document.getElementById("admin-btn");
+const adminModal = document.getElementById("admin-modal");
+const adminCodeInput = document.getElementById("admin-code");
+const adminCancel = document.getElementById("admin-cancel");
+const adminValidate = document.getElementById("admin-validate");
+const adminError = document.getElementById("admin-error");
+const adminPanel = document.getElementById("admin-panel");
+const adminClose = document.getElementById("admin-close");
+
+const adminMessageInput = document.getElementById("admin-message");
+const adminSaveMessage = document.getElementById("admin-save-message");
+const adminKeywordInput = document.getElementById("admin-keyword");
+const adminAnswerInput = document.getElementById("admin-answer");
+const adminSaveAnswer = document.getElementById("admin-save-answer");
+const importantBanner = document.getElementById("important-banner");
+
+const ADMIN_CODE = "175";
+
+adminBtn.addEventListener("click", () => {
+  adminModal.classList.remove("hidden");
+  adminCodeInput.value = "";
+  adminError.textContent = "";
+  adminCodeInput.focus();
+});
+
+adminCancel.addEventListener("click", () => {
+  adminModal.classList.add("hidden");
+});
+
+adminValidate.addEventListener("click", () => {
+  if (adminCodeInput.value === ADMIN_CODE) {
+    adminModal.classList.add("hidden");
+    adminPanel.classList.remove("hidden");
+  } else {
+    adminError.textContent = "Code incorrect.";
+  }
+});
+
+adminClose.addEventListener("click", () => {
+  adminPanel.classList.add("hidden");
+});
+
+// Message important
+adminSaveMessage.addEventListener("click", () => {
+  importantMessage = adminMessageInput.value.trim();
+  if (importantMessage) {
+    importantBanner.textContent = importantMessage;
+    importantBanner.classList.remove("hidden");
+  } else {
+    importantBanner.classList.add("hidden");
+  }
+});
+
+// Règle assistant
+adminSaveAnswer.addEventListener("click", () => {
+  const keyword = adminKeywordInput.value.trim();
+  const answer = adminAnswerInput.value.trim();
+  if (!keyword || !answer) return;
+  assistantRules.push({ keyword, answer });
+  adminKeywordInput.value = "";
+  adminAnswerInput.value = "";
+  alert("Règle enregistrée pour l’assistant.");
+});
