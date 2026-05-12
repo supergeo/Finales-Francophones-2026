@@ -17,6 +17,7 @@
     <button data-section="accueil">Accueil</button>
     <button data-section="samedi">Samedi</button>
     <button data-section="dimanche">Dimanche</button>
+    <button data-section="equipes">Équipes</button>
     <button data-section="terrains">Terrains</button>
     <button data-section="categories">Catégories</button>
     <button data-section="infos">Infos</button>
@@ -31,7 +32,7 @@
       <div class="grid-buttons">
         <button data-section="samedi" class="card-btn">Horaires samedi</button>
         <button data-section="dimanche" class="card-btn">Horaires dimanche</button>
-        <button data-section="terrains" class="card-btn">Terrains</button>
+        <button data-section="equipes" class="card-btn">Équipes</button>
         <button data-section="infos" class="card-btn">Infos pratiques</button>
       </div>
     </section>
@@ -52,6 +53,13 @@
         <input type="text" id="filter-dimanche" placeholder="Filtrer par équipe ou terrain..." />
       </div>
       <div id="dimanche-list" class="match-list"></div>
+    </section>
+
+    <!-- EQUIPES -->
+    <section id="equipes" class="section">
+      <h2>Équipes</h2>
+      <div id="equipes-buttons" class="grid-buttons"></div>
+      <div id="equipes-result" class="match-list"></div>
     </section>
 
     <!-- TERRAINS -->
