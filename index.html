@@ -182,106 +182,6 @@
 
     </div>
   </section>
-  <!-- SCORES -->
-  <section id="scores" class="section">
-    <div class="section-header">
-      <button class="back-btn" data-section="home">← Accueil</button>
-      <h2>Tableau des scores</h2>
-    </div>
-    <div id="scores-list" class="scores-list"></div>
-  </section>
-
-  <!-- CATEGORIES -->
-  <section id="categories" class="section">
-    <div class="section-header">
-      <button class="back-btn" data-section="home">← Accueil</button>
-      <h2>Catégories</h2>
-    </div>
-
-    <div class="categories-grid">
-      <button class="cat-btn" data-section="cat-u11">U11</button>
-      <button class="cat-btn" data-section="cat-u13">U13</button>
-      <button class="cat-btn" data-section="cat-u15">U15</button>
-      <button class="cat-btn" data-section="cat-u17">U17</button>
-      <button class="cat-btn" data-section="cat-u19">U19</button>
-    </div>
-  </section>
-
-  <!-- PAGES CATEGORIES -->
-  <section id="cat-u11" class="section">
-    <div class="section-header">
-      <button class="back-btn" data-section="categories">← Catégories</button>
-      <h2>Catégorie U11</h2>
-    </div>
-    <div class="sort-bar">
-      <button class="sort-btn active" data-cat="U11" data-sort="heure">Par heure</button>
-      <button class="sort-btn" data-cat="U11" data-sort="terrain">Par terrain</button>
-    </div>
-    <div id="cat-u11-content" class="cat-content"></div>
-  </section>
-
-  <section id="cat-u13" class="section">
-    <div class="section-header">
-      <button class="back-btn" data-section="categories">← Catégories</button>
-      <h2>Catégorie U13</h2>
-    </div>
-    <div class="sort-bar">
-      <button class="sort-btn active" data-cat="U13" data-sort="heure">Par heure</button>
-      <button class="sort-btn" data-cat="U13" data-sort="terrain">Par terrain</button>
-    </div>
-    <div id="cat-u13-content" class="cat-content"></div>
-  </section>
-
-  <section id="cat-u15" class="section">
-    <div class="section-header">
-      <button class="back-btn" data-section="categories">← Catégories</button>
-      <h2>Catégorie U15</h2>
-    </div>
-    <div class="sort-bar">
-      <button class="sort-btn active" data-cat="U15" data-sort="heure">Par heure</button>
-      <button class="sort-btn" data-cat="U15" data-sort="terrain">Par terrain</button>
-    </div>
-    <div id="cat-u15-content" class="cat-content"></div>
-  </section>
-
-  <section id="cat-u17" class="section">
-    <div class="section-header">
-      <button class="back-btn" data-section="categories">← Catégories</button>
-      <h2>Catégorie U17</h2>
-    </div>
-    <div class="sort-bar">
-      <button class="sort-btn active" data-cat="U17" data-sort="heure">Par heure</button>
-      <button class="sort-btn" data-cat="U17" data-sort="terrain">Par terrain</button>
-    </div>
-    <div id="cat-u17-content" class="cat-content"></div>
-  </section>
-
-  <section id="cat-u19" class="section">
-    <div class="section-header">
-      <button class="back-btn" data-section="categories">← Catégories</button>
-      <h2>Catégorie U19</h2>
-    </div>
-    <div class="sort-bar">
-      <button class="sort-btn active" data-cat="U19" data-sort="heure">Par heure</button>
-      <button class="sort-btn" data-cat="U19" data-sort="terrain">Par terrain</button>
-    </div>
-    <div id="cat-u19-content" class="cat-content"></div>
-  </section>
-
-  <!-- INFOS -->
-  <section id="infos" class="section">
-    <div class="section-header">
-      <button class="back-btn" data-section="home">← Accueil</button>
-      <h2>Infos</h2>
-    </div>
-
-    <div class="infos-content">
-      <p><strong>Lieu :</strong> Centre ADEPS La Fraineuse, Avenue Amédée Hesse 39, 4900 Spa</p>
-      <p><strong>Dates :</strong> Samedi 16 mai 2026 & Dimanche 17 mai 2026</p>
-      <p><strong>Organisation :</strong> Finales Francophones – Volley Wallonie-Bruxelles – Spa Volley Club</p>
-      <p><strong>Terrains :</strong> Hall 1 : T1–T2 • Hall 2 : T3–T5 • Hall ADEPS : T6–T8</p>
-    </div>
-  </section>
 
   <!-- HALL 1 -->
   <section id="hall1" class="section">
@@ -342,6 +242,7 @@
 
     <div id="hall-adeps-content" class="hall-content"></div>
   </section>
+
   <!-- ÉQUIPES -->
   <section id="equipes" class="section">
     <div class="section-header">
@@ -366,21 +267,6 @@
       </div>
     </div>
   </section>
-
-  <!-- MODAL ADMIN -->
-  <div id="admin-modal" class="modal hidden">
-    <div class="modal-content">
-      <h3>Accès encodage score</h3>
-      <p>Entrez le code admin :</p>
-      <input type="password" id="admin-code" placeholder="Code">
-      <div id="admin-error" class="error-msg"></div>
-
-      <div class="modal-actions">
-        <button id="admin-cancel">Annuler</button>
-        <button id="admin-validate">Valider</button>
-      </div>
-    </div>
-  </div>
 
   <!-- MODAL SCORE -->
   <div id="score-modal" class="modal hidden">
