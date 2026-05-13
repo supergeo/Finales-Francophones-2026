@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
   <header class="header">
     <div class="logo">SPA VOLLEY</div>
@@ -14,58 +13,116 @@
     <p>16 & 17 mai – La Fraineuse, Spa</p>
   </header>
 
-  <nav class="nav">
-    <button data-section="accueil">Accueil</button>
-    <button data-section="samedi">Samedi</button>
-    <button data-section="dimanche">Dimanche</button>
-    <button data-section="equipes">Équipes</button>
-    <button data-section="categories">Catégories</button>
-    <button data-section="terrains">Terrains</button>
-    <button data-section="infos">Infos</button>
-    <button data-section="matchs" class="gold-btn">Matchs</button>
-    <button data-section="scores" class="gold-btn">Scores</button>
-  </nav>
-
-  <main>
+  <main class="main">
 
     <!-- ACCUEIL -->
     <section id="accueil" class="section active">
-      <h2>Bienvenue</h2>
-      <p>Finales Francophones Jeunes 2026 – Spa Volley Club.</p>
+      <div class="home-grid">
+        <button class="home-card" data-section="samedi-info">Samedi</button>
+        <button class="home-card" data-section="dimanche-info">Dimanche</button>
+        <button class="home-card" data-section="equipes">Équipes</button>
+        <button class="home-card" data-section="categories">Catégories</button>
+        <button class="home-card" data-section="terrains">Terrains</button>
+        <button class="home-card" data-section="infos">Infos</button>
+      </div>
 
-      <div class="grid-buttons">
-        <button data-section="samedi" class="card-btn">Horaires samedi</button>
-        <button data-section="dimanche" class="card-btn">Horaires dimanche</button>
-        <button data-section="equipes" class="card-btn">Équipes</button>
-        <button data-section="categories" class="card-btn">Catégories</button>
-        <button data-section="terrains" class="card-btn">Terrains</button>
-        <button data-section="infos" class="card-btn">Infos</button>
-        <button data-section="matchs" class="card-btn gold-btn">Matchs</button>
-        <button data-section="scores" class="card-btn gold-btn">Tableau des scores</button>
+      <div class="home-actions">
+        <button class="gold-btn big" data-section="matchs-choix">Matchs</button>
+        <button class="gold-btn big" data-section="scores">Tableau des scores</button>
       </div>
     </section>
 
-    <!-- MATCHS -->
-    <section id="matchs" class="section">
+    <!-- CHOIX MATCHS -->
+    <section id="matchs-choix" class="section">
       <h2>Matchs</h2>
-      <div id="matchs-en-cours" class="match-list"></div>
-      <div id="matchs-suivants" class="match-list"></div>
-      <button id="encoder-score" class="gold-btn hidden">Encoder un score</button>
+      <div class="choice-row">
+        <button class="gold-btn big" data-section="matchs-samedi">Matchs samedi</button>
+        <button class="gold-btn big" data-section="matchs-dimanche">Matchs dimanche</button>
+      </div>
+    </section>
+
+    <!-- MATCHS SAMEDI -->
+    <section id="matchs-samedi" class="section">
+      <h2>Matchs samedi</h2>
+      <div class="halls-container">
+        <div class="hall">
+          <h3>Hall 1</h3>
+          <div class="terrain" id="samedi-t1"></div>
+          <div class="terrain" id="samedi-t2"></div>
+        </div>
+        <div class="hall">
+          <h3>Hall 2</h3>
+          <div class="terrain" id="samedi-t3"></div>
+          <div class="terrain" id="samedi-t4"></div>
+          <div class="terrain" id="samedi-t5"></div>
+        </div>
+        <div class="hall">
+          <h3>Hall ADEPS</h3>
+          <div class="terrain" id="samedi-t6"></div>
+        </div>
+      </div>
+      <button id="encoder-score-samedi" class="gold-btn">Encoder un score (samedi)</button>
+    </section>
+
+    <!-- MATCHS DIMANCHE -->
+    <section id="matchs-dimanche" class="section">
+      <h2>Matchs dimanche</h2>
+      <div class="halls-container">
+        <div class="hall">
+          <h3>Hall 1</h3>
+          <div class="terrain" id="dimanche-t1"></div>
+          <div class="terrain" id="dimanche-t2"></div>
+        </div>
+        <div class="hall">
+          <h3>Hall 2</h3>
+          <div class="terrain" id="dimanche-t3"></div>
+          <div class="terrain" id="dimanche-t4"></div>
+          <div class="terrain" id="dimanche-t5"></div>
+        </div>
+        <div class="hall">
+          <h3>Hall ADEPS</h3>
+          <div class="terrain" id="dimanche-t6"></div>
+        </div>
+      </div>
+      <button id="encoder-score-dimanche" class="gold-btn">Encoder un score (dimanche)</button>
     </section>
 
     <!-- SCORES -->
     <section id="scores" class="section">
       <h2>Tableau des scores</h2>
-      <div id="scores-list" class="match-list"></div>
+      <div id="scores-list" class="scores-list"></div>
     </section>
 
-    <!-- AUTRES SECTIONS -->
-    <section id="samedi" class="section"><h2>Horaires samedi</h2><div id="samedi-list"></div></section>
-    <section id="dimanche" class="section"><h2>Horaires dimanche</h2><div id="dimanche-list"></div></section>
-    <section id="equipes" class="section"><h2>Équipes</h2><div id="equipes-buttons"></div><div id="equipes-result"></div></section>
-    <section id="categories" class="section"><h2>Catégories</h2><div id="categories-list"></div></section>
-    <section id="terrains" class="section"><h2>Terrains</h2><div id="terrains-list"></div></section>
-    <section id="infos" class="section"><h2>Infos</h2><div id="infos-list"></div></section>
+    <!-- SECTIONS INFO SIMPLIFIÉES -->
+    <section id="samedi-info" class="section">
+      <h2>Infos samedi</h2>
+      <p>Finales Francophones – programme du samedi.</p>
+    </section>
+
+    <section id="dimanche-info" class="section">
+      <h2>Infos dimanche</h2>
+      <p>Finales Francophones – programme du dimanche.</p>
+    </section>
+
+    <section id="equipes" class="section">
+      <h2>Équipes</h2>
+      <p>Liste des équipes à intégrer.</p>
+    </section>
+
+    <section id="categories" class="section">
+      <h2>Catégories</h2>
+      <p>U11, U13, U15, U17, U19.</p>
+    </section>
+
+    <section id="terrains" class="section">
+      <h2>Terrains & halls</h2>
+      <p>Hall 1 : T1, T2 – Hall 2 : T3, T4, T5 – Hall ADEPS : T6.</p>
+    </section>
+
+    <section id="infos" class="section">
+      <h2>Infos pratiques</h2>
+      <p>Adresse : Avenue Amédée Hesse 39, La Fraineuse, 4900 Spa.</p>
+    </section>
 
   </main>
 
