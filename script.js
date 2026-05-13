@@ -14,7 +14,7 @@ let scores = [];
 loadScores();
 
 /********************************************
- * DONNÉES MATCHS (EXEMPLES)
+ * DONNÉES MATCHS (SAMEDI & DIMANCHE)
  ********************************************/
 const samedi = {
   t1: [
@@ -198,6 +198,68 @@ function renderScores() {
 }
 
 /********************************************
+ * RENDU CATEGORIES
+ ********************************************/
+function getAllMatchesByCategory(category) {
+  let list = [];
+
+  // samedi
+  Object.keys(samedi).forEach(t => {
+    samedi[t].forEach((m, i) => {
+      if (m.category === category) {
+        list.push({
+          ...m,
+          terrain: t,
+          day: "samedi"
+        });
+      }
+    });
+  });
+
+  // dimanche
+  Object.keys(dimanche).forEach(t => {
+    dimanche[t].forEach((m, i) => {
+      if (m.category === category) {
+        list.push({
+          ...m,
+          terrain: t,
+          day: "dimanche"
+        });
+      }
+    });
+  });
+
+  return list;
+}
+
+function renderCategorie(category, mode = "heure") {
+  const container = document.getElementById(`cat-${category.toLowerCase()}-content`);
+  if (!container) return;
+
+  let matches = getAllMatchesByCategory(category);
+
+  if (mode === "heure") {
+    matches.sort((a, b) => a.time.localeCompare(b.time));
+  } else {
+    matches.sort((a, b) => a.terrain.localeCompare(b.terrain));
+  }
+
+  let html = "";
+
+  matches.forEach(m => {
+    html += `
+      <div class="match-block">
+        <div class="match-time">${m.time}</div>
+        <div class="match-teams">${m.teams}</div>
+        <div class="match-category">${m.day} – ${m.terrain}</div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
+/********************************************
  * NAVIGATION
  ********************************************/
 const sections = document.querySelectorAll(".section");
@@ -213,6 +275,26 @@ clickable.forEach(el => {
     if (target === "matchs-samedi") renderMatchsSamedi();
     if (target === "matchs-dimanche") renderMatchsDimanche();
     if (target === "scores") renderScores();
+
+    if (target.startsWith("cat-u")) {
+      const cat = target.split("-")[1].toUpperCase();
+      renderCategorie(cat);
+    }
+  });
+});
+
+/********************************************
+ * TRI CATEGORIES
+ ********************************************/
+document.querySelectorAll(".sort-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const cat = btn.dataset.cat;
+    const mode = btn.dataset.sort;
+
+    renderCategorie(cat, mode);
+
+    btn.parentNode.querySelectorAll(".sort-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
   });
 });
 
