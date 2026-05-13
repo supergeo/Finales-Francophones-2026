@@ -1,5 +1,6 @@
+
 // =========================
-// Données de base
+// Constantes & utilitaires
 // =========================
 
 const ADMIN_CODE = "175";
@@ -12,9 +13,14 @@ function parseTime(t) {
   return h * 60 + (m || 0);
 }
 
+// =========================
+// Données des matchs
+// (extraites des PDF samedi + dimanche)
+// =========================
+
 let matches = [
   // ===== SAMEDI =====
-  // 9h / 9h00
+  // 9h
   { id: "S-T1-9h", day: "samedi", terrain: 1, time: "9h00", teamA: "Waremme", teamB: "Chaumont" },
   { id: "S-T2-9h", day: "samedi", terrain: 2, time: "9h00", teamA: "Nalinnes", teamB: "Le Roux" },
   { id: "S-T3-9h", day: "samedi", terrain: 3, time: "9h00", teamA: "Thimister", teamB: "Romedenne" },
@@ -36,7 +42,7 @@ let matches = [
 
   // 11h / 11h30
   { id: "S-T1-11h30", day: "samedi", terrain: 1, time: "11h30", teamA: "Chaumont", teamB: "Nalinnes" },
-  { id: "S-T2-11h30", day: "samedi", terrain: 2, time: "11h30", teamA: "Waremme", teamB: "Le Roux" },
+  { id: "S-T2-11h30", day: "samedi", terrain: 2, time: "11h30", teamA: "Waremme", teamB: "Leroux" },
   { id: "S-T3-11h30", day: "samedi", terrain: 3, time: "11h30", teamA: "Romedenne", teamB: "Nivelles" },
   { id: "S-T4-11h30", day: "samedi", terrain: 4, time: "11h30", teamA: "BEVC", teamB: "Libramont" },
   { id: "S-T5-11h30", day: "samedi", terrain: 5, time: "11h30", teamA: "Waremme", teamB: "S Brussels" },
@@ -53,7 +59,7 @@ let matches = [
   { id: "S-T7-12h", day: "samedi", terrain: 7, time: "12h00", teamA: "Guibertin", teamB: "Jemeppe" },
   { id: "S-T8-12h45", day: "samedi", terrain: 8, time: "12h45", teamA: "La Louvière", teamB: "Chaumont" },
 
-  // 13h / 14h
+  // 14h
   { id: "S-T1-14h", day: "samedi", terrain: 1, time: "14h00", teamA: "2èA", teamB: "1erB" },
   { id: "S-T3-14h", day: "samedi", terrain: 3, time: "14h00", teamA: "3è Place", teamB: "" },
   { id: "S-T4-14h", day: "samedi", terrain: 4, time: "14h00", teamA: "5è Place", teamB: "" },
@@ -69,16 +75,18 @@ let matches = [
   { id: "S-T6-14h", day: "samedi", terrain: 6, time: "14h00", teamA: "5è Place", teamB: "" },
   { id: "S-T8-15h15", day: "samedi", terrain: 8, time: "15h15", teamA: "Chaumont", teamB: "Namur" },
 
-  // 16h30 / 18h / 19h30
+  // 18h / 16h30 / 15h30
   { id: "S-T1-18h", day: "samedi", terrain: 1, time: "18h00", teamA: "3è Place U19G", teamB: "" },
-  { id: "S-T5-16h30", day: "samedi", terrain: 5, time: "16h30", teamA: "2èB", teamB: "1erA" },
+  { id: "S-T5-16h30", day: "samedi", terrain: 5, time: "16h30", teamA: "2è B", teamB: "1erA" },
   { id: "S-T6-15h30", day: "samedi", terrain: 6, time: "15h30", teamA: "3e Place", teamB: "" },
   { id: "S-T7-16h30", day: "samedi", terrain: 7, time: "16h30", teamA: "5è Place", teamB: "" },
   { id: "S-T8-16h30", day: "samedi", terrain: 8, time: "16h30", teamA: "2èA", teamB: "1erB" },
+
+  // 19h30
   { id: "S-T1-19h30", day: "samedi", terrain: 1, time: "19h30", teamA: "Finale U19G", teamB: "" },
 
   // ===== DIMANCHE =====
-  // 9h / 9h00
+  // 9h
   { id: "D-T1-9h", day: "dimanche", terrain: 1, time: "9h00", teamA: "Thimister", teamB: "Limal" },
   { id: "D-T2-9h", day: "dimanche", terrain: 2, time: "9h00", teamA: "Gedinne", teamB: "Tchalou" },
   { id: "D-T3-9h", day: "dimanche", terrain: 3, time: "9h00", teamA: "Waremme", teamB: "Chaumont" },
@@ -128,28 +136,30 @@ let matches = [
   { id: "D-T7-14h", day: "dimanche", terrain: 7, time: "14h00", teamA: "3è Place", teamB: "" },
   { id: "D-T8-14h", day: "dimanche", terrain: 8, time: "14h00", teamA: "Waremme", teamB: "Chaumont" },
 
-  // 14h / 15h15 / 16h30 / 17h / 19h30
+  // 14h / 15h15
   { id: "D-T1-14h-FinalU11", day: "dimanche", terrain: 1, time: "14h00", teamA: "Finale U11", teamB: "" },
-  { id: "D-T1-15h", day: "dimanche", terrain: 1, time: "15h00", teamA: "Finale U15 F", teamB: "" },
-  { id: "D-T1-17h", day: "dimanche", terrain: 1, time: "17h00", teamA: "Finale U17 G", teamB: "" },
-  { id: "D-T1-19h30", day: "dimanche", terrain: 1, time: "19h30", teamA: "Finale U19 F", teamB: "" },
-
   { id: "D-T3-15h15", day: "dimanche", terrain: 3, time: "15h15", teamA: "2èB", teamB: "1er A" },
   { id: "D-T4-15h15", day: "dimanche", terrain: 4, time: "15h15", teamA: "2è A", teamB: "1er B" },
   { id: "D-T5-15h15", day: "dimanche", terrain: 5, time: "15h15", teamA: "3è Place", teamB: "" },
   { id: "D-T6-15h15", day: "dimanche", terrain: 6, time: "15h15", teamA: "Ixelles", teamB: "Tchalou" },
   { id: "D-T8-15h15", day: "dimanche", terrain: 8, time: "15h15", teamA: "Bertrix", teamB: "Waremme" },
 
+  // 15h / 16h30
+  { id: "D-T1-15h", day: "dimanche", terrain: 1, time: "15h00", teamA: "Finale U15 F", teamB: "" },
   { id: "D-T3-16h30", day: "dimanche", terrain: 3, time: "16h30", teamA: "3è Place", teamB: "" },
   { id: "D-T4-16h30", day: "dimanche", terrain: 4, time: "16h30", teamA: "5è place", teamB: "" },
   { id: "D-T6-16h30", day: "dimanche", terrain: 6, time: "16h30", teamA: "Romedenne", teamB: "Ixelles" },
   { id: "D-T8-16h30", day: "dimanche", terrain: 8, time: "16h30", teamA: "Chaumont", teamB: "Waremme" },
 
+  // 17h / 17h45
+  { id: "D-T1-17h", day: "dimanche", terrain: 1, time: "17h00", teamA: "Finale U17 G", teamB: "" },
   { id: "D-T3-17h45", day: "dimanche", terrain: 3, time: "17h45", teamA: "Finale", teamB: "" },
   { id: "D-T6-17h45", day: "dimanche", terrain: 6, time: "17h45", teamA: "2è B", teamB: "1er A" },
   { id: "D-T7-17h45", day: "dimanche", terrain: 7, time: "17h45", teamA: "5è place", teamB: "" },
   { id: "D-T8-17h45", day: "dimanche", terrain: 8, time: "17h45", teamA: "2èA", teamB: "1erB" },
 
+  // 19h30
+  { id: "D-T1-19h30", day: "dimanche", terrain: 1, time: "19h30", teamA: "Finale U19 F", teamB: "" },
   { id: "D-T5-19h30", day: "dimanche", terrain: 5, time: "19h30", teamA: "3è Place", teamB: "" }
 ];
 
@@ -161,9 +171,7 @@ let scores = {};
 
 function loadScores() {
   const saved = localStorage.getItem("ffspa_scores");
-  if (saved) {
-    scores = JSON.parse(saved);
-  }
+  if (saved) scores = JSON.parse(saved);
 }
 
 function saveScores() {
@@ -189,6 +197,9 @@ function setupNavigation() {
       if (target === "matchs-dimanche") renderTerrainsDay("dimanche");
       if (target === "scores") renderScores();
       if (target === "equipes") renderEquipes();
+      if (target === "hall1") renderHall("hall1");
+      if (target === "hall2") renderHall("hall2");
+      if (target === "hall-adeps") renderHall("hall-adeps");
     });
   });
 
@@ -196,6 +207,15 @@ function setupNavigation() {
     btn.addEventListener("click", () => {
       const target = btn.getAttribute("data-section");
       showSection(target);
+    });
+  });
+
+  document.querySelectorAll(".cat-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const target = btn.getAttribute("data-section");
+      showSection(target);
+      const cat = target.split("-")[1].toUpperCase();
+      renderCategory(cat, "heure");
     });
   });
 }
@@ -297,12 +317,12 @@ function renderHall(hallId) {
   const state = hallState[hallId];
   const terrains = hallTerrains[hallId];
   const container = document.getElementById(`${hallId}-content`);
+  if (!container) return;
   container.innerHTML = "";
 
   const hallMatches = matches.filter(m => m.day === state.day && terrains.includes(m.terrain));
 
   if (state.sort === "terrain") {
-    // Par terrain
     terrains.forEach(t => {
       const block = document.createElement("div");
       block.className = "terrain-card";
@@ -311,28 +331,26 @@ function renderHall(hallId) {
       title.innerHTML = `<span>Terrain ${t}</span>`;
       block.appendChild(title);
 
-      const list = hallMatches
+      hallMatches
         .filter(m => m.terrain === t)
-        .sort((a, b) => parseTime(a.time) - parseTime(b.time));
-
-      list.forEach(m => {
-        const div = document.createElement("div");
-        div.className = "match-block";
-        div.dataset.matchId = m.id;
-        const catText = m.category ? ` (${m.category})` : "";
-        div.innerHTML = `
-          <div class="match-hour">${m.time || ""}</div>
-          <div class="match-teams">${m.teamA} - ${m.teamB}${catText}</div>
-          <div class="match-score">${scores[m.id] || ""}</div>
-        `;
-        div.addEventListener("click", () => onMatchClick(m));
-        block.appendChild(div);
-      });
+        .sort((a, b) => parseTime(a.time) - parseTime(b.time))
+        .forEach(m => {
+          const div = document.createElement("div");
+          div.className = "match-block";
+          div.dataset.matchId = m.id;
+          div.innerHTML = `
+            <div class="match-hour">${m.time || ""}</div>
+            <div class="match-teams">${m.teamA} - ${m.teamB}</div>
+            <div class="match-score">${scores[m.id] || ""}</div>
+          `;
+          div.addEventListener("click", () => onMatchClick(m));
+          block.appendChild(div);
+        });
 
       container.appendChild(block);
     });
   } else {
-    // Par heure (A3 : groupé par heure)
+    // Tri par heure (A3 : groupé par heure)
     const byTime = {};
     hallMatches.forEach(m => {
       const key = m.time || "";
@@ -355,9 +373,8 @@ function renderHall(hallId) {
         .forEach(m => {
           const item = document.createElement("div");
           item.className = "hour-item";
-          const catText = m.category ? ` (${m.category})` : "";
           item.innerHTML = `
-            <span>T${m.terrain}</span> : ${m.teamA} - ${m.teamB}${catText}
+            <span>T${m.terrain}</span> : ${m.teamA} - ${m.teamB}
             <span style="float:right;">${scores[m.id] || ""}</span>
           `;
           item.addEventListener("click", () => onMatchClick(m));
@@ -391,7 +408,6 @@ function renderEquipes() {
   listContainer.innerHTML = "";
   detailContainer.innerHTML = "<p>Sélectionnez une équipe pour voir ses matchs.</p>";
 
-  // Pour l’instant, on ne connaît pas les catégories exactes par équipe → on affiche juste "Toutes"
   const li = document.createElement("li");
   li.textContent = "Toutes les équipes";
   li.addEventListener("click", () => {
@@ -420,13 +436,3 @@ function renderEquipesList() {
 }
 
 function renderEquipeDetail(team) {
-  const detailContainer = document.getElementById("equipe-detail");
-  detailContainer.innerHTML = "";
-
-  const teamMatches = matches.filter(m => m.teamA === team || m.teamB === team);
-  if (teamMatches.length === 0) {
-    detailContainer.innerHTML = "<p>Aucun match trouvé pour cette équipe.</p>";
-    return;
-  }
-
-  const title = document.createElemen
