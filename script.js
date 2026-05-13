@@ -138,8 +138,7 @@ let matches = [
   { id:"D-T8-14h", day:"dimanche", terrain:8, time:"14h00", teamA:"Waremme", teamB:"Chaumont" },
 
   // 14h / 15h15
-  { id:"D-T1-14h-FinalU11", day:"dimanche", terrain:1, time:"14h00", teamA:"Finale U11
-    { id:"D-T1-14h-FinalU11", day:"dimanche", terrain:1, time:"14h00", teamA:"Finale U11", teamB:"" },
+  { id:"D-T1-14h-FinalU11", day:"dimanche", terrain:1, time:"14h00", teamA:"Finale U11", teamB:"" },
 
   // 15h15
   { id:"D-T3-15h15", day:"dimanche", terrain:3, time:"15h15", teamA:"2èB", teamB:"1er A" },
@@ -229,6 +228,7 @@ function setupNavigation() {
 function renderTerrainsDay(day) {
   for (let t = 1; t <= 8; t++) {
     const container = document.getElementById(`${day}-t${t}`);
+    if (!container) continue;
     container.innerHTML = "";
 
     matches
@@ -321,6 +321,7 @@ function setupHalls() {
 
 function renderHall(hallId) {
   const container = document.getElementById(`${hallId}-content`);
+  if (!container) return;
   container.innerHTML = "";
 
   const terrains = hallTerrains[hallId];
@@ -477,7 +478,6 @@ function renderEquipeDetail(team) {
 /* =========================
    CATÉGORIES (structure prête)
 ========================= */
-
 function setupCategories() {
   document.querySelectorAll(".sort-btn").forEach(btn => {
     btn.addEventListener("click", () => {
@@ -485,7 +485,7 @@ function setupCategories() {
       const sort = btn.dataset.sort;
 
       document
-        .querySelectorAll(`.sort-btn[data-cat="${cat}"]`)
+        .querySelectorAll(.sort-btn[data-cat="${cat}"])
         .forEach(b => b.classList.remove("active"));
 
       btn.classList.add("active");
@@ -495,7 +495,8 @@ function setupCategories() {
 }
 
 function renderCategory(cat, mode) {
-  const container = document.getElementById(`cat-${cat.toLowerCase()}-content`);
+  const container = document.getElementById(cat-${cat.toLowerCase()}-content);
+  if (!container) return;
   container.innerHTML = "<p>Aucune catégorie définie dans les données.</p>";
 }
 
@@ -542,7 +543,7 @@ function onMatchClick(match) {
   const label = document.getElementById("score-match");
   const select = document.getElementById("score-select");
 
-  label.textContent = `${match.day.toUpperCase()} • T${match.terrain} • ${match.time} • ${match.teamA} - ${match.teamB}`;
+  label.textContent = ${match.day.toUpperCase()} • T${match.terrain} • ${match.time} • ${match.teamA} - ${match.teamB};
   select.value = scores[match.id] || "";
 
   modal.classList.remove("hidden");
@@ -594,4 +595,3 @@ window.addEventListener("DOMContentLoaded", () => {
   renderHall("hall2");
   renderHall("hall-adeps");
 });
-
