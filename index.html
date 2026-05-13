@@ -1,272 +1,386 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <title>Finales Francophones Jeunes 2026 - Spa Volley</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>Finales Francophones Spa 2026</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
   <!-- HEADER -->
-  <header class="header">
-    <div class="logo">SPA VOLLEY</div>
-    <h1>Finales Francophones Jeunes 2026</h1>
-    <p>16 & 17 mai – La Fraineuse, Spa</p>
+  <header class="app-header">
+    <div class="header-title">
+      <div class="header-main">Finales Francophones 2026</div>
+      <div class="header-sub">Spa • La Fraineuse • 16–17 mai 2026</div>
+    </div>
   </header>
 
-  <main class="main">
-
-    <!-- ACCUEIL -->
-    <section id="accueil" class="section active">
-      <div class="home-actions-vertical">
-        <button class="gold-btn xxl" data-section="matchs-choix">Matchs</button>
-        <button class="gold-btn xxl" data-section="scores">Tableau des scores</button>
-        <button class="gold-btn xxl" data-section="categories">Catégories</button>
-        <button class="gold-btn xxl" data-section="infos">Infos</button>
-      </div>
-    </section>
-
-    <!-- CHOIX MATCHS -->
-    <section id="matchs-choix" class="section">
-      <h2>Matchs</h2>
-      <div class="choice-row">
-        <button class="gold-btn big" data-section="matchs-samedi">Matchs samedi</button>
-        <button class="gold-btn big" data-section="matchs-dimanche">Matchs dimanche</button>
-      </div>
-      <button class="back-home" data-section="accueil">Accueil</button>
-    </section>
-
-    <!-- MATCHS SAMEDI -->
-    <section id="matchs-samedi" class="section">
-      <h2>Matchs samedi</h2>
-
-      <div class="halls-container">
-
-        <!-- 6 terrains samedi -->
-        <div class="hall">
-          <div class="terrain-title-row">
-            <h3>Terrain 1</h3>
-            <span class="edit-terrain" data-terrain="samedi-t1">✏️</span>
-          </div>
-          <div class="terrain" id="samedi-t1"></div>
-        </div>
-
-        <div class="hall">
-          <div class="terrain-title-row">
-            <h3>Terrain 2</h3>
-            <span class="edit-terrain" data-terrain="samedi-t2">✏️</span>
-          </div>
-          <div class="terrain" id="samedi-t2"></div>
-        </div>
-
-        <div class="hall">
-          <div class="terrain-title-row">
-            <h3>Terrain 3</h3>
-            <span class="edit-terrain" data-terrain="samedi-t3">✏️</span>
-          </div>
-          <div class="terrain" id="samedi-t3"></div>
-        </div>
-
-        <div class="hall">
-          <div class="terrain-title-row">
-            <h3>Terrain 4</h3>
-            <span class="edit-terrain" data-terrain="samedi-t4">✏️</span>
-          </div>
-          <div class="terrain" id="samedi-t4"></div>
-        </div>
-
-        <div class="hall">
-          <div class="terrain-title-row">
-            <h3>Terrain 5</h3>
-            <span class="edit-terrain" data-terrain="samedi-t5">✏️</span>
-          </div>
-          <div class="terrain" id="samedi-t5"></div>
-        </div>
-
-        <div class="hall">
-          <div class="terrain-title-row">
-            <h3>Terrain 6</h3>
-            <span class="edit-terrain" data-terrain="samedi-t6">✏️</span>
-          </div>
-          <div class="terrain" id="samedi-t6"></div>
-        </div>
-
-      </div>
-
-      <button class="back-home" data-section="accueil">Accueil</button>
-    </section>
-
-    <!-- MATCHS DIMANCHE -->
-    <section id="matchs-dimanche" class="section">
-      <h2>Matchs dimanche</h2>
-
-      <div class="halls-container">
-
-        <!-- 6 terrains dimanche -->
-        <div class="hall">
-          <div class="terrain-title-row">
-            <h3>Terrain 1</h3>
-            <span class="edit-terrain" data-terrain="dimanche-t1">✏️</span>
-          </div>
-          <div class="terrain" id="dimanche-t1"></div>
-        </div>
-
-        <div class="hall">
-          <div class="terrain-title-row">
-            <h3>Terrain 2</h3>
-            <span class="edit-terrain" data-terrain="dimanche-t2">✏️</span>
-          </div>
-          <div class="terrain" id="dimanche-t2"></div>
-        </div>
-
-        <div class="hall">
-          <div class="terrain-title-row">
-            <h3>Terrain 3</h3>
-            <span class="edit-terrain" data-terrain="dimanche-t3">✏️</span>
-          </div>
-          <div class="terrain" id="dimanche-t3"></div>
-        </div>
-
-        <div class="hall">
-          <div class="terrain-title-row">
-            <h3>Terrain 4</h3>
-            <span class="edit-terrain" data-terrain="dimanche-t4">✏️</span>
-          </div>
-          <div class="terrain" id="dimanche-t4"></div>
-        </div>
-
-        <div class="hall">
-          <div class="terrain-title-row">
-            <h3>Terrain 5</h3>
-            <span class="edit-terrain" data-terrain="dimanche-t5">✏️</span>
-          </div>
-          <div class="terrain" id="dimanche-t5"></div>
-        </div>
-
-        <div class="hall">
-          <div class="terrain-title-row">
-            <h3>Terrain 6</h3>
-            <span class="edit-terrain" data-terrain="dimanche-t6">✏️</span>
-          </div>
-          <div class="terrain" id="dimanche-t6"></div>
-        </div>
-
-      </div>
-
-      <button class="back-home" data-section="accueil">Accueil</button>
-    </section>
-
-    <!-- CATEGORIES -->
-    <section id="categories" class="section">
-      <h2>Catégories</h2>
-
-      <div class="home-actions-vertical">
-        <button class="gold-btn big" data-section="cat-u11">U11</button>
-        <button class="gold-btn big" data-section="cat-u13">U13</button>
-        <button class="gold-btn big" data-section="cat-u15">U15</button>
-        <button class="gold-btn big" data-section="cat-u17">U17</button>
-        <button class="gold-btn big" data-section="cat-u19">U19</button>
-      </div>
-
-      <button class="back-home" data-section="accueil">Accueil</button>
-    </section>
-
-    <!-- PAGES CATEGORIES -->
-    <section id="cat-u11" class="section">
-      <h2>Programme U11</h2>
-      <div class="sort-buttons">
-        <button class="sort-btn" data-sort="heure" data-cat="U11">Classé par heure</button>
-        <button class="sort-btn" data-sort="terrain" data-cat="U11">Classé par terrain</button>
-      </div>
-      <div id="cat-u11-content"></div>
-      <button class="back-home" data-section="accueil">Accueil</button>
-    </section>
-
-    <section id="cat-u13" class="section">
-      <h2>Programme U13</h2>
-      <div class="sort-buttons">
-        <button class="sort-btn" data-sort="heure" data-cat="U13">Classé par heure</button>
-        <button class="sort-btn" data-sort="terrain" data-cat="U13">Classé par terrain</button>
-      </div>
-      <div id="cat-u13-content"></div>
-      <button class="back-home" data-section="accueil">Accueil</button>
-    </section>
-
-    <section id="cat-u15" class="section">
-      <h2>Programme U15</h2>
-      <div class="sort-buttons">
-        <button class="sort-btn" data-sort="heure" data-cat="U15">Classé par heure</button>
-        <button class="sort-btn" data-sort="terrain" data-cat="U15">Classé par terrain</button>
-      </div>
-      <div id="cat-u15-content"></div>
-      <button class="back-home" data-section="accueil">Accueil</button>
-    </section>
-
-    <section id="cat-u17" class="section">
-      <h2>Programme U17</h2>
-      <div class="sort-buttons">
-        <button class="sort-btn" data-sort="heure" data-cat="U17">Classé par heure</button>
-        <button class="sort-btn" data-sort="terrain" data-cat="U17">Classé par terrain</button>
-      </div>
-      <div id="cat-u17-content"></div>
-      <button class="back-home" data-section="accueil">Accueil</button>
-    </section>
-
-    <section id="cat-u19" class="section">
-      <h2>Programme U19</h2>
-      <div class="sort-buttons">
-        <button class="sort-btn" data-sort="heure" data-cat="U19">Classé par heure</button>
-        <button class="sort-btn" data-sort="terrain" data-cat="U19">Classé par terrain</button>
-      </div>
-      <div id="cat-u19-content"></div>
-      <button class="back-home" data-section="accueil">Accueil</button>
-    </section>
-
-    <!-- INFOS -->
-    <section id="infos" class="section">
-      <h2>Infos pratiques</h2>
-      <p>Adresse : Avenue Amédée Hesse 39, La Fraineuse, 4900 Spa.</p>
-      <p>Parkings, restauration, horaires, accès halls…</p>
-      <button class="back-home" data-section="accueil">Accueil</button>
-    </section>
-
-    <!-- SCORES -->
-    <section id="scores" class="section">
-      <h2>Tableau des scores</h2>
-      <div id="scores-list"></div>
-      <button class="back-home" data-section="accueil">Accueil</button>
-    </section>
-
+  <!-- NAV PRINCIPALE (ACCUEIL) -->
+  <main id="home" class="section active">
+    <div class="home-grid">
+      <button class="home-btn" data-section="matchs-samedi">Matchs samedi</button>
+      <button class="home-btn" data-section="matchs-dimanche">Matchs dimanche</button>
+      <button class="home-btn" data-section="scores">Tableau des scores</button>
+      <button class="home-btn" data-section="categories">Catégories</button>
+      <button class="home-btn" data-section="infos">Infos</button>
+      <button class="home-btn" data-section="hall1">Hall 1</button>
+      <button class="home-btn" data-section="hall2">Hall 2</button>
+      <button class="home-btn" data-section="hall-adeps">Hall ADEPS</button>
+      <button class="home-btn" data-section="equipes">Équipes</button>
+    </div>
   </main>
+
+  <!-- MATCHS SAMEDI (VUE PAR TERRAINS) -->
+  <section id="matchs-samedi" class="section">
+    <div class="section-header">
+      <button class="back-btn" data-section="home">← Accueil</button>
+      <h2>Matchs • Samedi</h2>
+    </div>
+    <div class="terrains-grid">
+      <div class="terrain-card">
+        <div class="terrain-header">
+          <span>Terrain 1</span>
+          <button class="edit-terrain" data-terrain="samedi-t1">✏️</button>
+        </div>
+        <div id="samedi-t1" class="terrain-content"></div>
+      </div>
+      <div class="terrain-card">
+        <div class="terrain-header">
+          <span>Terrain 2</span>
+          <button class="edit-terrain" data-terrain="samedi-t2">✏️</button>
+        </div>
+        <div id="samedi-t2" class="terrain-content"></div>
+      </div>
+      <div class="terrain-card">
+        <div class="terrain-header">
+          <span>Terrain 3</span>
+          <button class="edit-terrain" data-terrain="samedi-t3">✏️</button>
+        </div>
+        <div id="samedi-t3" class="terrain-content"></div>
+      </div>
+      <div class="terrain-card">
+        <div class="terrain-header">
+          <span>Terrain 4</span>
+          <button class="edit-terrain" data-terrain="samedi-t4">✏️</button>
+        </div>
+        <div id="samedi-t4" class="terrain-content"></div>
+      </div>
+      <div class="terrain-card">
+        <div class="terrain-header">
+          <span>Terrain 5</span>
+          <button class="edit-terrain" data-terrain="samedi-t5">✏️</button>
+        </div>
+        <div id="samedi-t5" class="terrain-content"></div>
+      </div>
+      <div class="terrain-card">
+        <div class="terrain-header">
+          <span>Terrain 6</span>
+          <button class="edit-terrain" data-terrain="samedi-t6">✏️</button>
+        </div>
+        <div id="samedi-t6" class="terrain-content"></div>
+      </div>
+      <div class="terrain-card">
+        <div class="terrain-header">
+          <span>Terrain 7</span>
+          <button class="edit-terrain" data-terrain="samedi-t7">✏️</button>
+        </div>
+        <div id="samedi-t7" class="terrain-content"></div>
+      </div>
+      <div class="terrain-card">
+        <div class="terrain-header">
+          <span>Terrain 8</span>
+          <button class="edit-terrain" data-terrain="samedi-t8">✏️</button>
+        </div>
+        <div id="samedi-t8" class="terrain-content"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MATCHS DIMANCHE (VUE PAR TERRAINS) -->
+  <section id="matchs-dimanche" class="section">
+    <div class="section-header">
+      <button class="back-btn" data-section="home">← Accueil</button>
+      <h2>Matchs • Dimanche</h2>
+    </div>
+    <div class="terrains-grid">
+      <div class="terrain-card">
+        <div class="terrain-header">
+          <span>Terrain 1</span>
+          <button class="edit-terrain" data-terrain="dimanche-t1">✏️</button>
+        </div>
+        <div id="dimanche-t1" class="terrain-content"></div>
+      </div>
+      <div class="terrain-card">
+        <div class="terrain-header">
+          <span>Terrain 2</span>
+          <button class="edit-terrain" data-terrain="dimanche-t2">✏️</button>
+        </div>
+        <div id="dimanche-t2" class="terrain-content"></div>
+      </div>
+      <div class="terrain-card">
+        <div class="terrain-header">
+          <span>Terrain 3</span>
+          <button class="edit-terrain" data-terrain="dimanche-t3">✏️</button>
+        </div>
+        <div id="dimanche-t3" class="terrain-content"></div>
+      </div>
+      <div class="terrain-card">
+        <div class="terrain-header">
+          <span>Terrain 4</span>
+          <button class="edit-terrain" data-terrain="dimanche-t4">✏️</button>
+        </div>
+        <div id="dimanche-t4" class="terrain-content"></div>
+      </div>
+      <div class="terrain-card">
+        <div class="terrain-header">
+          <span>Terrain 5</span>
+          <button class="edit-terrain" data-terrain="dimanche-t5">✏️</button>
+        </div>
+        <div id="dimanche-t5" class="terrain-content"></div>
+      </div>
+      <div class="terrain-card">
+        <div class="terrain-header">
+          <span>Terrain 6</span>
+          <button class="edit-terrain" data-terrain="dimanche-t6">✏️</button>
+        </div>
+        <div id="dimanche-t6" class="terrain-content"></div>
+      </div>
+      <div class="terrain-card">
+        <div class="terrain-header">
+          <span>Terrain 7</span>
+          <button class="edit-terrain" data-terrain="dimanche-t7">✏️</button>
+        </div>
+        <div id="dimanche-t7" class="terrain-content"></div>
+      </div>
+      <div class="terrain-card">
+        <div class="terrain-header">
+          <span>Terrain 8</span>
+          <button class="edit-terrain" data-terrain="dimanche-t8">✏️</button>
+        </div>
+        <div id="dimanche-t8" class="terrain-content"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TABLEAU DES SCORES -->
+  <section id="scores" class="section">
+    <div class="section-header">
+      <button class="back-btn" data-section="home">← Accueil</button>
+      <h2>Tableau des scores</h2>
+    </div>
+    <div id="scores-list" class="scores-list"></div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section id="categories" class="section">
+    <div class="section-header">
+      <button class="back-btn" data-section="home">← Accueil</button>
+      <h2>Catégories</h2>
+    </div>
+
+    <div class="categories-grid">
+      <button class="cat-btn" data-section="cat-u11">U11</button>
+      <button class="cat-btn" data-section="cat-u13">U13</button>
+      <button class="cat-btn" data-section="cat-u15">U15</button>
+      <button class="cat-btn" data-section="cat-u17">U17</button>
+      <button class="cat-btn" data-section="cat-u19">U19</button>
+    </div>
+  </section>
+
+  <!-- PAGES CATEGORIES DETAILLEES -->
+  <section id="cat-u11" class="section">
+    <div class="section-header">
+      <button class="back-btn" data-section="categories">← Catégories</button>
+      <h2>Catégorie U11</h2>
+    </div>
+    <div class="sort-bar">
+      <button class="sort-btn active" data-cat="U11" data-sort="heure">Par heure</button>
+      <button class="sort-btn" data-cat="U11" data-sort="terrain">Par terrain</button>
+    </div>
+    <div id="cat-u11-content" class="cat-content"></div>
+  </section>
+
+  <section id="cat-u13" class="section">
+    <div class="section-header">
+      <button class="back-btn" data-section="categories">← Catégories</button>
+      <h2>Catégorie U13</h2>
+    </div>
+    <div class="sort-bar">
+      <button class="sort-btn active" data-cat="U13" data-sort="heure">Par heure</button>
+      <button class="sort-btn" data-cat="U13" data-sort="terrain">Par terrain</button>
+    </div>
+    <div id="cat-u13-content" class="cat-content"></div>
+  </section>
+
+  <section id="cat-u15" class="section">
+    <div class="section-header">
+      <button class="back-btn" data-section="categories">← Catégories</button>
+      <h2>Catégorie U15</h2>
+    </div>
+    <div class="sort-bar">
+      <button class="sort-btn active" data-cat="U15" data-sort="heure">Par heure</button>
+      <button class="sort-btn" data-cat="U15" data-sort="terrain">Par terrain</button>
+    </div>
+    <div id="cat-u15-content" class="cat-content"></div>
+  </section>
+
+  <section id="cat-u17" class="section">
+    <div class="section-header">
+      <button class="back-btn" data-section="categories">← Catégories</button>
+      <h2>Catégorie U17</h2>
+    </div>
+    <div class="sort-bar">
+      <button class="sort-btn active" data-cat="U17" data-sort="heure">Par heure</button>
+      <button class="sort-btn" data-cat="U17" data-sort="terrain">Par terrain</button>
+    </div>
+    <div id="cat-u17-content" class="cat-content"></div>
+  </section>
+
+  <section id="cat-u19" class="section">
+    <div class="section-header">
+      <button class="back-btn" data-section="categories">← Catégories</button>
+      <h2>Catégorie U19</h2>
+    </div>
+    <div class="sort-bar">
+      <button class="sort-btn active" data-cat="U19" data-sort="heure">Par heure</button>
+      <button class="sort-btn" data-cat="U19" data-sort="terrain">Par terrain</button>
+    </div>
+    <div id="cat-u19-content" class="cat-content"></div>
+  </section>
+
+  <!-- INFOS -->
+  <section id="infos" class="section">
+    <div class="section-header">
+      <button class="back-btn" data-section="home">← Accueil</button>
+      <h2>Infos</h2>
+    </div>
+    <div class="infos-content">
+      <p><strong>Lieu :</strong> Centre ADEPS La Fraineuse, Avenue Amédée Hesse 39, 4900 Spa</p>
+      <p><strong>Dates :</strong> Samedi 16 mai 2026 & Dimanche 17 mai 2026</p>
+      <p><strong>Organisation :</strong> Finales Francophones – Volley Wallonie-Bruxelles – Spa Volley Club</p>
+      <p><strong>Remarque :</strong> T1–T2 central pour finales, T3–T4 tracé U11–U13, T3 à T8 OK pour U15, U17, U19.</p>
+    </div>
+  </section>
+
+  <!-- HALL 1 -->
+  <section id="hall1" class="section">
+    <div class="section-header">
+      <button class="back-btn" data-section="home">← Accueil</button>
+      <h2>Hall 1 • T1 & T2</h2>
+    </div>
+
+    <div class="tabs-bar">
+      <button class="tab-btn hall-tab active" data-hall="hall1" data-day="samedi">Samedi</button>
+      <button class="tab-btn hall-tab" data-hall="hall1" data-day="dimanche">Dimanche</button>
+    </div>
+
+    <div class="sort-bar">
+      <button class="sort-btn-hall active" data-hall="hall1" data-sort="heure">Par heure</button>
+      <button class="sort-btn-hall" data-hall="hall1" data-sort="terrain">Par terrain</button>
+    </div>
+
+    <div id="hall1-content" class="hall-content"></div>
+  </section>
+
+  <!-- HALL 2 -->
+  <section id="hall2" class="section">
+    <div class="section-header">
+      <button class="back-btn" data-section="home">← Accueil</button>
+      <h2>Hall 2 • T3, T4 & T5</h2>
+    </div>
+
+    <div class="tabs-bar">
+      <button class="tab-btn hall-tab active" data-hall="hall2" data-day="samedi">Samedi</button>
+      <button class="tab-btn hall-tab" data-hall="hall2" data-day="dimanche">Dimanche</button>
+    </div>
+
+    <div class="sort-bar">
+      <button class="sort-btn-hall active" data-hall="hall2" data-sort="heure">Par heure</button>
+      <button class="sort-btn-hall" data-hall="hall2" data-sort="terrain">Par terrain</button>
+    </div>
+
+    <div id="hall2-content" class="hall-content"></div>
+  </section>
+
+  <!-- HALL ADEPS -->
+  <section id="hall-adeps" class="section">
+    <div class="section-header">
+      <button class="back-btn" data-section="home">← Accueil</button>
+      <h2>Hall ADEPS • T6, T7 & T8</h2>
+    </div>
+
+    <div class="tabs-bar">
+      <button class="tab-btn hall-tab active" data-hall="hall-adeps" data-day="samedi">Samedi</button>
+      <button class="tab-btn hall-tab" data-hall="hall-adeps" data-day="dimanche">Dimanche</button>
+    </div>
+
+    <div class="sort-bar">
+      <button class="sort-btn-hall active" data-hall="hall-adeps" data-sort="heure">Par heure</button>
+      <button class="sort-btn-hall" data-hall="hall-adeps" data-sort="terrain">Par terrain</button>
+    </div>
+
+    <div id="hall-adeps-content" class="hall-content"></div>
+  </section>
+
+  <!-- EQUIPES -->
+  <section id="equipes" class="section">
+    <div class="section-header">
+      <button class="back-btn" data-section="home">← Accueil</button>
+      <h2>Équipes</h2>
+    </div>
+
+    <div class="equipes-layout">
+      <div class="equipes-cats">
+        <h3>Catégories</h3>
+        <ul id="equipes-categories"></ul>
+      </div>
+      <div class="equipes-list-wrapper">
+        <h3>Équipes</h3>
+        <ul id="equipes-list"></ul>
+      </div>
+      <div class="equipe-detail-wrapper">
+        <h3>Détail équipe</h3>
+        <div id="equipe-detail"></div>
+      </div>
+    </div>
+  </section>
 
   <!-- MODAL ADMIN -->
   <div id="admin-modal" class="modal hidden">
     <div class="modal-content">
-      <h3>Accès administrateur</h3>
-      <p>Entrer le code :</p>
-      <input type="password" id="admin-code" maxlength="4" />
+      <h3>Accès encodage score</h3>
+      <p>Entrez le code admin :</p>
+      <input type="password" id="admin-code" placeholder="Code" />
+      <div id="admin-error" class="error-msg"></div>
       <div class="modal-actions">
         <button id="admin-cancel">Annuler</button>
         <button id="admin-validate">Valider</button>
       </div>
-      <p id="admin-error" class="error-msg"></p>
     </div>
   </div>
 
   <!-- MODAL SCORE -->
   <div id="score-modal" class="modal hidden">
     <div class="modal-content">
-      <h3>Encoder un score</h3>
+      <h3>Encoder le score</h3>
       <p id="score-match"></p>
-      <input type="number" id="scoreA" placeholder="Score équipe A" />
-      <input type="number" id="scoreB" placeholder="Score équipe B" />
-      <button id="score-save">Enregistrer</button>
-      <button id="score-close">Fermer</button>
+      <select id="score-select">
+        <option value="">-- Choisir un score --</option>
+        <option value="0-0">0 - 0</option>
+        <option value="1-1">1 - 1</option>
+        <option value="2-0">2 - 0</option>
+        <option value="0-2">0 - 2</option>
+        <option value="2-1">2 - 1</option>
+        <option value="1-2">1 - 2</option>
+      </select>
+      <div class="modal-actions">
+        <button id="score-close">Fermer</button>
+        <button id="score-save">Enregistrer</button>
+      </div>
     </div>
   </div>
 
   <script src="script.js"></script>
 </body>
-</html>
+  </html>
