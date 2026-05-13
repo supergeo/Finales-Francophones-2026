@@ -1,332 +1,432 @@
-/* RESET */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Inter", sans-serif;
+// =========================
+// Données de base
+// =========================
+
+const ADMIN_CODE = "175";
+
+function parseTime(t) {
+  if (!t) return 0;
+  let s = t.replace("h", ":");
+  if (!s.includes(":")) s += ":00";
+  const [h, m] = s.split(":").map(Number);
+  return h * 60 + (m || 0);
 }
 
-body {
-  background: #f4f4f4;
-  color: #222;
-}
+let matches = [
+  // ===== SAMEDI =====
+  // 9h / 9h00
+  { id: "S-T1-9h", day: "samedi", terrain: 1, time: "9h00", teamA: "Waremme", teamB: "Chaumont" },
+  { id: "S-T2-9h", day: "samedi", terrain: 2, time: "9h00", teamA: "Nalinnes", teamB: "Le Roux" },
+  { id: "S-T3-9h", day: "samedi", terrain: 3, time: "9h00", teamA: "Thimister", teamB: "Romedenne" },
+  { id: "S-T4-9h", day: "samedi", terrain: 4, time: "9h00", teamA: "Tchalou", teamB: "BEVC" },
+  { id: "S-T5-9h", day: "samedi", terrain: 5, time: "9h00", teamA: "Tchalou", teamB: "Waremme" },
+  { id: "S-T6-9h", day: "samedi", terrain: 6, time: "9h00", teamA: "Nalinnes", teamB: "F Uccle" },
+  { id: "S-T7-9h", day: "samedi", terrain: 7, time: "9h00", teamA: "Jemeppe", teamB: "Waremme" },
+  { id: "S-T8-9h", day: "samedi", terrain: 8, time: "9h00", teamA: "Chaumont", teamB: "Romedenne" },
 
-/* HEADER */
-.app-header {
-  background: #1a237e;
-  color: white;
-  padding: 20px;
-  text-align: center;
-}
+  // 10h / 10h15
+  { id: "S-T1-10h15", day: "samedi", terrain: 1, time: "10h15", teamA: "Nalinnes", teamB: "Waremme" },
+  { id: "S-T2-10h15", day: "samedi", terrain: 2, time: "10h15", teamA: "Le Roux", teamB: "Chaumont" },
+  { id: "S-T3-10h15", day: "samedi", terrain: 3, time: "10h15", teamA: "Nivelles", teamB: "Thimister" },
+  { id: "S-T4-10h15", day: "samedi", terrain: 4, time: "10h15", teamA: "Libramont", teamB: "Tchalou" },
+  { id: "S-T5-10h15", day: "samedi", terrain: 5, time: "10h15", teamA: "S Brussels", teamB: "Tchalou" },
+  { id: "S-T6-10h", day: "samedi", terrain: 6, time: "10h00", teamA: "Jemeppe", teamB: "Nalinnes" },
+  { id: "S-T7-10h", day: "samedi", terrain: 7, time: "10h00", teamA: "Waremme", teamB: "Guibertin" },
+  { id: "S-T8-10h15", day: "samedi", terrain: 8, time: "10h15", teamA: "Stabulois", teamB: "Chaumont" },
 
-.header-main {
-  font-size: 26px;
-  font-weight: 700;
-}
+  // 11h / 11h30
+  { id: "S-T1-11h30", day: "samedi", terrain: 1, time: "11h30", teamA: "Chaumont", teamB: "Nalinnes" },
+  { id: "S-T2-11h30", day: "samedi", terrain: 2, time: "11h30", teamA: "Waremme", teamB: "Le Roux" },
+  { id: "S-T3-11h30", day: "samedi", terrain: 3, time: "11h30", teamA: "Romedenne", teamB: "Nivelles" },
+  { id: "S-T4-11h30", day: "samedi", terrain: 4, time: "11h30", teamA: "BEVC", teamB: "Libramont" },
+  { id: "S-T5-11h30", day: "samedi", terrain: 5, time: "11h30", teamA: "Waremme", teamB: "S Brussels" },
+  { id: "S-T6-11h", day: "samedi", terrain: 6, time: "11h00", teamA: "F Uccle", teamB: "Jemeppe" },
+  { id: "S-T7-11h", day: "samedi", terrain: 7, time: "11h00", teamA: "Nalinnes", teamB: "Guibertin" },
+  { id: "S-T8-11h30", day: "samedi", terrain: 8, time: "11h30", teamA: "Romedenne", teamB: "Stabulois" },
 
-.header-sub {
-  font-size: 14px;
-  opacity: 0.8;
-}
+  // 12h / 12h45
+  { id: "S-T1-12h45", day: "samedi", terrain: 1, time: "12h45", teamA: "2èB", teamB: "1erA" },
+  { id: "S-T3-12h45", day: "samedi", terrain: 3, time: "12h45", teamA: "2èB", teamB: "1erA" },
+  { id: "S-T4-12h45", day: "samedi", terrain: 4, time: "12h45", teamA: "2èA", teamB: "1erB" },
+  { id: "S-T5-12h45", day: "samedi", terrain: 5, time: "12h45", teamA: "Waremme", teamB: "Libramont" },
+  { id: "S-T6-12h", day: "samedi", terrain: 6, time: "12h00", teamA: "F Uccle", teamB: "Waremme" },
+  { id: "S-T7-12h", day: "samedi", terrain: 7, time: "12h00", teamA: "Guibertin", teamB: "Jemeppe" },
+  { id: "S-T8-12h45", day: "samedi", terrain: 8, time: "12h45", teamA: "La Louvière", teamB: "Chaumont" },
 
-/* SECTIONS */
-.section {
-  display: none;
-  padding: 20px;
-}
+  // 13h / 14h
+  { id: "S-T1-14h", day: "samedi", terrain: 1, time: "14h00", teamA: "2èA", teamB: "1erB" },
+  { id: "S-T3-14h", day: "samedi", terrain: 3, time: "14h00", teamA: "3è Place", teamB: "" },
+  { id: "S-T4-14h", day: "samedi", terrain: 4, time: "14h00", teamA: "5è Place", teamB: "" },
+  { id: "S-T5-14h", day: "samedi", terrain: 5, time: "14h00", teamA: "S Brussels", teamB: "Waremme" },
+  { id: "S-T6-13h", day: "samedi", terrain: 6, time: "13h00", teamA: "Waremme", teamB: "Nalinnes" },
+  { id: "S-T7-13h", day: "samedi", terrain: 7, time: "13h00", teamA: "Guibertin", teamB: "F Uccle" },
+  { id: "S-T8-14h", day: "samedi", terrain: 8, time: "14h00", teamA: "Namur", teamB: "La Louvière" },
 
-.section.active {
-  display: block;
-}
+  // 15h / 15h15
+  { id: "S-T1-15h30", day: "samedi", terrain: 1, time: "15h30", teamA: "Finale U17", teamB: "" },
+  { id: "S-T3-15h15", day: "samedi", terrain: 3, time: "15h15", teamA: "Finale", teamB: "" },
+  { id: "S-T5-15h15", day: "samedi", terrain: 5, time: "15h15", teamA: "Libramont", teamB: "S Brussels" },
+  { id: "S-T6-14h", day: "samedi", terrain: 6, time: "14h00", teamA: "5è Place", teamB: "" },
+  { id: "S-T8-15h15", day: "samedi", terrain: 8, time: "15h15", teamA: "Chaumont", teamB: "Namur" },
 
-.section-header {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 20px;
-}
+  // 16h30 / 18h / 19h30
+  { id: "S-T1-18h", day: "samedi", terrain: 1, time: "18h00", teamA: "3è Place U19G", teamB: "" },
+  { id: "S-T5-16h30", day: "samedi", terrain: 5, time: "16h30", teamA: "2èB", teamB: "1erA" },
+  { id: "S-T6-15h30", day: "samedi", terrain: 6, time: "15h30", teamA: "3e Place", teamB: "" },
+  { id: "S-T7-16h30", day: "samedi", terrain: 7, time: "16h30", teamA: "5è Place", teamB: "" },
+  { id: "S-T8-16h30", day: "samedi", terrain: 8, time: "16h30", teamA: "2èA", teamB: "1erB" },
+  { id: "S-T1-19h30", day: "samedi", terrain: 1, time: "19h30", teamA: "Finale U19G", teamB: "" },
 
-.section-header h2 {
-  font-size: 24px;
-  font-weight: 700;
-}
+  // ===== DIMANCHE =====
+  // 9h / 9h00
+  { id: "D-T1-9h", day: "dimanche", terrain: 1, time: "9h00", teamA: "Thimister", teamB: "Limal" },
+  { id: "D-T2-9h", day: "dimanche", terrain: 2, time: "9h00", teamA: "Gedinne", teamB: "Tchalou" },
+  { id: "D-T3-9h", day: "dimanche", terrain: 3, time: "9h00", teamA: "Waremme", teamB: "Chaumont" },
+  { id: "D-T4-9h", day: "dimanche", terrain: 4, time: "9h00", teamA: "Waremme", teamB: "Chaumont" },
+  { id: "D-T5-9h", day: "dimanche", terrain: 5, time: "9h00", teamA: "Tchalou", teamB: "Ciney" },
+  { id: "D-T6-9h", day: "dimanche", terrain: 6, time: "9h00", teamA: "Waremme", teamB: "Namur" },
+  { id: "D-T7-9h", day: "dimanche", terrain: 7, time: "9h00", teamA: "Chaumont", teamB: "La Louvière" },
+  { id: "D-T8-9h", day: "dimanche", terrain: 8, time: "9h00", teamA: "Bertrix", teamB: "S Eupen" },
 
-.back-btn {
-  background: #ddd;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 600;
-}
+  // 10h / 10h15
+  { id: "D-T1-10h", day: "dimanche", terrain: 1, time: "10h00", teamA: "Ixelles", teamB: "Thimister" },
+  { id: "D-T2-10h", day: "dimanche", terrain: 2, time: "10h00", teamA: "S Eupen", teamB: "Gedinne" },
+  { id: "D-T3-10h15", day: "dimanche", terrain: 3, time: "10h15", teamA: "Ohey", teamB: "Soignies" },
+  { id: "D-T4-10h15", day: "dimanche", terrain: 4, time: "10h15", teamA: "Bouillon", teamB: "Waremme" },
+  { id: "D-T5-10h15", day: "dimanche", terrain: 5, time: "10h15", teamA: "Ixelles", teamB: "Tchalou" },
+  { id: "D-T6-10h15", day: "dimanche", terrain: 6, time: "10h15", teamA: "S Brussels", teamB: "Waremme" },
+  { id: "D-T7-10h15", day: "dimanche", terrain: 7, time: "10h15", teamA: "La Louvière", teamB: "Bertrix" },
+  { id: "D-T8-10h15", day: "dimanche", terrain: 8, time: "10h15", teamA: "S Eupen", teamB: "Chaumont" },
 
-/* HOME GRID */
-.home-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 15px;
-  margin-top: 20px;
-}
+  // 11h / 11h30
+  { id: "D-T1-11h", day: "dimanche", terrain: 1, time: "11h00", teamA: "Limal", teamB: "Ixelles" },
+  { id: "D-T2-11h", day: "dimanche", terrain: 2, time: "11h00", teamA: "Tchalou", teamB: "S Eupen" },
+  { id: "D-T3-11h30", day: "dimanche", terrain: 3, time: "11h30", teamA: "Bouillon", teamB: "Waremme" },
+  { id: "D-T4-11h30", day: "dimanche", terrain: 4, time: "11h30", teamA: "Chaumont", teamB: "Bouillon" },
+  { id: "D-T5-11h30", day: "dimanche", terrain: 5, time: "11h30", teamA: "Ciney", teamB: "Ixelles" },
+  { id: "D-T6-11h30", day: "dimanche", terrain: 6, time: "11h30", teamA: "Namur", teamB: "S Brussels" },
+  { id: "D-T7-11h30", day: "dimanche", terrain: 7, time: "11h30", teamA: "La Louvière", teamB: "S Eupen" },
+  { id: "D-T8-11h30", day: "dimanche", terrain: 8, time: "11h30", teamA: "Chaumont", teamB: "Bertrix" },
 
-.home-btn {
-  padding: 20px;
-  background: white;
-  border-radius: 10px;
-  border: 2px solid #1a237e;
-  font-size: 18px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.2s;
-}
+  // 12h / 12h45
+  { id: "D-T1-12h", day: "dimanche", terrain: 1, time: "12h00", teamA: "2è A", teamB: "1erB" },
+  { id: "D-T2-12h", day: "dimanche", terrain: 2, time: "12h00", teamA: "2è B", teamB: "1er A" },
+  { id: "D-T3-12h45", day: "dimanche", terrain: 3, time: "12h45", teamA: "F Uccle", teamB: "Ohey" },
+  { id: "D-T4-12h45", day: "dimanche", terrain: 4, time: "12h45", teamA: "2è B", teamB: "1er A" },
+  { id: "D-T5-12h45", day: "dimanche", terrain: 5, time: "12h45", teamA: "2è A", teamB: "1er B" },
+  { id: "D-T6-12h45", day: "dimanche", terrain: 6, time: "12h45", teamA: "5è Place", teamB: "" },
+  { id: "D-T7-12h45", day: "dimanche", terrain: 7, time: "12h45", teamA: "2è A", teamB: "1er B" },
+  { id: "D-T8-12h45", day: "dimanche", terrain: 8, time: "12h45", teamA: "2è B", teamB: "1er A" },
 
-.home-btn:hover {
-  background: #1a237e;
-  color: white;
-}
+  // 13h / 14h
+  { id: "D-T1-13h", day: "dimanche", terrain: 1, time: "13h00", teamA: "5è Place", teamB: "" },
+  { id: "D-T2-13h", day: "dimanche", terrain: 2, time: "13h00", teamA: "3è place U11", teamB: "" },
+  { id: "D-T3-14h", day: "dimanche", terrain: 3, time: "14h00", teamA: "Chaumont", teamB: "Bouillon" },
+  { id: "D-T4-14h", day: "dimanche", terrain: 4, time: "14h00", teamA: "Soignies", teamB: "F Uccle" },
+  { id: "D-T5-14h", day: "dimanche", terrain: 5, time: "14h00", teamA: "5è place", teamB: "" },
+  { id: "D-T6-14h", day: "dimanche", terrain: 6, time: "14h00", teamA: "Tchalou", teamB: "Romedenne" },
+  { id: "D-T7-14h", day: "dimanche", terrain: 7, time: "14h00", teamA: "3è Place", teamB: "" },
+  { id: "D-T8-14h", day: "dimanche", terrain: 8, time: "14h00", teamA: "Waremme", teamB: "Chaumont" },
 
-/* TERRAINS GRID */
-.terrains-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 20px;
-}
+  // 14h / 15h15 / 16h30 / 17h / 19h30
+  { id: "D-T1-14h-FinalU11", day: "dimanche", terrain: 1, time: "14h00", teamA: "Finale U11", teamB: "" },
+  { id: "D-T1-15h", day: "dimanche", terrain: 1, time: "15h00", teamA: "Finale U15 F", teamB: "" },
+  { id: "D-T1-17h", day: "dimanche", terrain: 1, time: "17h00", teamA: "Finale U17 G", teamB: "" },
+  { id: "D-T1-19h30", day: "dimanche", terrain: 1, time: "19h30", teamA: "Finale U19 F", teamB: "" },
 
-.terrain-card {
-  background: white;
-  border-radius: 10px;
-  padding: 15px;
-  border: 2px solid #1a237e;
-}
+  { id: "D-T3-15h15", day: "dimanche", terrain: 3, time: "15h15", teamA: "2èB", teamB: "1er A" },
+  { id: "D-T4-15h15", day: "dimanche", terrain: 4, time: "15h15", teamA: "2è A", teamB: "1er B" },
+  { id: "D-T5-15h15", day: "dimanche", terrain: 5, time: "15h15", teamA: "3è Place", teamB: "" },
+  { id: "D-T6-15h15", day: "dimanche", terrain: 6, time: "15h15", teamA: "Ixelles", teamB: "Tchalou" },
+  { id: "D-T8-15h15", day: "dimanche", terrain: 8, time: "15h15", teamA: "Bertrix", teamB: "Waremme" },
 
-.terrain-header {
-  display: flex;
-  justify-content: space-between;
-  font-size: 18px;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
+  { id: "D-T3-16h30", day: "dimanche", terrain: 3, time: "16h30", teamA: "3è Place", teamB: "" },
+  { id: "D-T4-16h30", day: "dimanche", terrain: 4, time: "16h30", teamA: "5è place", teamB: "" },
+  { id: "D-T6-16h30", day: "dimanche", terrain: 6, time: "16h30", teamA: "Romedenne", teamB: "Ixelles" },
+  { id: "D-T8-16h30", day: "dimanche", terrain: 8, time: "16h30", teamA: "Chaumont", teamB: "Waremme" },
 
-.edit-terrain {
-  background: none;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-}
+  { id: "D-T3-17h45", day: "dimanche", terrain: 3, time: "17h45", teamA: "Finale", teamB: "" },
+  { id: "D-T6-17h45", day: "dimanche", terrain: 6, time: "17h45", teamA: "2è B", teamB: "1er A" },
+  { id: "D-T7-17h45", day: "dimanche", terrain: 7, time: "17h45", teamA: "5è place", teamB: "" },
+  { id: "D-T8-17h45", day: "dimanche", terrain: 8, time: "17h45", teamA: "2èA", teamB: "1erB" },
 
-/* MATCH BLOCKS */
-.match-block {
-  background: #f0f0f0;
-  padding: 10px;
-  border-radius: 8px;
-  margin-bottom: 8px;
-}
+  { id: "D-T5-19h30", day: "dimanche", terrain: 5, time: "19h30", teamA: "3è Place", teamB: "" }
+];
 
-.match-hour {
-  font-weight: 700;
-  color: #1a237e;
-}
+// =========================
+// Scores (localStorage)
+// =========================
 
-.match-teams {
-  margin-top: 4px;
-  font-size: 15px;
-}
+let scores = {};
 
-/* GROUPED BY HOUR */
-.hour-group {
-  background: white;
-  border-radius: 10px;
-  padding: 12px;
-  margin-bottom: 15px;
-  border-left: 5px solid #1a237e;
-}
-
-.hour-title {
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-
-.hour-item {
-  padding: 6px 0;
-  border-bottom: 1px solid #ddd;
-}
-
-.hour-item:last-child {
-  border-bottom: none;
-}
-
-.hour-item span {
-  font-weight: 600;
-}
-
-/* SORT BAR */
-.sort-bar {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
-}
-
-.sort-btn,
-.sort-btn-hall {
-  padding: 10px 16px;
-  border-radius: 8px;
-  border: 2px solid #1a237e;
-  background: white;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.sort-btn.active,
-.sort-btn-hall.active {
-  background: #1a237e;
-  color: white;
-}
-
-/* TABS */
-.tabs-bar {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
-}
-
-.tab-btn {
-  padding: 10px 16px;
-  border-radius: 8px;
-  border: 2px solid #1a237e;
-  background: white;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.tab-btn.active {
-  background: #1a237e;
-  color: white;
-}
-
-/* SCORES */
-.scores-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.score-item {
-  background: white;
-  padding: 12px;
-  border-radius: 8px;
-  border-left: 5px solid #1a237e;
-}
-
-/* CATEGORIES */
-.categories-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 15px;
-}
-
-.cat-btn {
-  padding: 18px;
-  background: white;
-  border-radius: 10px;
-  border: 2px solid #1a237e;
-  font-size: 18px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.cat-btn:hover {
-  background: #1a237e;
-  color: white;
-}
-
-/* EQUIPES */
-.equipes-layout {
-  display: grid;
-  grid-template-columns: 200px 1fr 1fr;
-  gap: 20px;
-}
-
-.equipes-cats ul,
-#equipes-list {
-  list-style: none;
-}
-
-.equipes-cats li,
-#equipes-list li {
-  padding: 10px;
-  background: white;
-  border-radius: 8px;
-  margin-bottom: 8px;
-  cursor: pointer;
-  border: 2px solid #1a237e;
-}
-
-.equipes-cats li:hover,
-#equipes-list li:hover {
-  background: #1a237e;
-  color: white;
-}
-
-.equipe-detail-wrapper {
-  background: white;
-  padding: 15px;
-  border-radius: 10px;
-  border: 2px solid #1a237e;
-}
-
-/* MODALS */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal.hidden {
-  display: none;
-}
-
-.modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 400px;
-}
-
-.modal-actions {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 15px;
-}
-
-.modal-actions button {
-  padding: 10px 16px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-#admin-cancel,
-#score-close {
-  background: #ddd;
-}
-
-#admin-validate,
-#score-save {
-  background: #1a237e;
-  color: white;
-}
-
-/* RESPONSIVE */
-@media (max-width: 900px) {
-  .equipes-layout {
-    grid-template-columns: 1fr;
+function loadScores() {
+  const saved = localStorage.getItem("ffspa_scores");
+  if (saved) {
+    scores = JSON.parse(saved);
   }
 }
+
+function saveScores() {
+  localStorage.setItem("ffspa_scores", JSON.stringify(scores));
+}
+
+// =========================
+// Navigation
+// =========================
+
+function showSection(id) {
+  document.querySelectorAll(".section").forEach(sec => sec.classList.remove("active"));
+  const el = document.getElementById(id);
+  if (el) el.classList.add("active");
+}
+
+function setupNavigation() {
+  document.querySelectorAll(".home-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const target = btn.getAttribute("data-section");
+      showSection(target);
+      if (target === "matchs-samedi") renderTerrainsDay("samedi");
+      if (target === "matchs-dimanche") renderTerrainsDay("dimanche");
+      if (target === "scores") renderScores();
+      if (target === "equipes") renderEquipes();
+    });
+  });
+
+  document.querySelectorAll(".back-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const target = btn.getAttribute("data-section");
+      showSection(target);
+    });
+  });
+}
+
+// =========================
+// Rendu terrains par jour
+// =========================
+
+function renderTerrainsDay(day) {
+  for (let t = 1; t <= 8; t++) {
+    const id = `${day}-t${t}`;
+    const container = document.getElementById(id);
+    if (!container) continue;
+    container.innerHTML = "";
+    const list = matches
+      .filter(m => m.day === day && m.terrain === t)
+      .sort((a, b) => parseTime(a.time) - parseTime(b.time));
+
+    list.forEach(m => {
+      const div = document.createElement("div");
+      div.className = "match-block";
+      div.dataset.matchId = m.id;
+      div.innerHTML = `
+        <div class="match-hour">${m.time || ""}</div>
+        <div class="match-teams">${m.teamA} - ${m.teamB}</div>
+        <div class="match-score">${scores[m.id] || ""}</div>
+      `;
+      div.addEventListener("click", () => onMatchClick(m));
+      container.appendChild(div);
+    });
+  }
+}
+
+// =========================
+// Tableau des scores
+// =========================
+
+function renderScores() {
+  const container = document.getElementById("scores-list");
+  container.innerHTML = "";
+  const scoredMatches = matches.filter(m => scores[m.id]);
+  if (scoredMatches.length === 0) {
+    container.innerHTML = "<p>Aucun score encodé pour l’instant.</p>";
+    return;
+  }
+  scoredMatches.forEach(m => {
+    const div = document.createElement("div");
+    div.className = "score-item";
+    div.innerHTML = `
+      <div><strong>${m.day.toUpperCase()}</strong> • Terrain ${m.terrain} • ${m.time}</div>
+      <div>${m.teamA} - ${m.teamB}</div>
+      <div><strong>Score :</strong> ${scores[m.id]}</div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+// =========================
+// Halls
+// =========================
+
+const hallTerrains = {
+  hall1: [1, 2],
+  hall2: [3, 4, 5],
+  "hall-adeps": [6, 7, 8]
+};
+
+const hallState = {
+  hall1: { day: "samedi", sort: "heure" },
+  hall2: { day: "samedi", sort: "heure" },
+  "hall-adeps": { day: "samedi", sort: "heure" }
+};
+
+function setupHalls() {
+  document.querySelectorAll(".hall-tab").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const hall = btn.getAttribute("data-hall");
+      const day = btn.getAttribute("data-day");
+      hallState[hall].day = day;
+      document.querySelectorAll(`.hall-tab[data-hall="${hall}"]`).forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      renderHall(hall);
+    });
+  });
+
+  document.querySelectorAll(".sort-btn-hall").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const hall = btn.getAttribute("data-hall");
+      const sort = btn.getAttribute("data-sort");
+      hallState[hall].sort = sort;
+      document.querySelectorAll(`.sort-btn-hall[data-hall="${hall}"]`).forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      renderHall(hall);
+    });
+  });
+}
+
+function renderHall(hallId) {
+  const state = hallState[hallId];
+  const terrains = hallTerrains[hallId];
+  const container = document.getElementById(`${hallId}-content`);
+  container.innerHTML = "";
+
+  const hallMatches = matches.filter(m => m.day === state.day && terrains.includes(m.terrain));
+
+  if (state.sort === "terrain") {
+    // Par terrain
+    terrains.forEach(t => {
+      const block = document.createElement("div");
+      block.className = "terrain-card";
+      const title = document.createElement("div");
+      title.className = "terrain-header";
+      title.innerHTML = `<span>Terrain ${t}</span>`;
+      block.appendChild(title);
+
+      const list = hallMatches
+        .filter(m => m.terrain === t)
+        .sort((a, b) => parseTime(a.time) - parseTime(b.time));
+
+      list.forEach(m => {
+        const div = document.createElement("div");
+        div.className = "match-block";
+        div.dataset.matchId = m.id;
+        const catText = m.category ? ` (${m.category})` : "";
+        div.innerHTML = `
+          <div class="match-hour">${m.time || ""}</div>
+          <div class="match-teams">${m.teamA} - ${m.teamB}${catText}</div>
+          <div class="match-score">${scores[m.id] || ""}</div>
+        `;
+        div.addEventListener("click", () => onMatchClick(m));
+        block.appendChild(div);
+      });
+
+      container.appendChild(block);
+    });
+  } else {
+    // Par heure (A3 : groupé par heure)
+    const byTime = {};
+    hallMatches.forEach(m => {
+      const key = m.time || "";
+      if (!byTime[key]) byTime[key] = [];
+      byTime[key].push(m);
+    });
+
+    const times = Object.keys(byTime).sort((a, b) => parseTime(a) - parseTime(b));
+
+    times.forEach(time => {
+      const group = document.createElement("div");
+      group.className = "hour-group";
+      const title = document.createElement("div");
+      title.className = "hour-title";
+      title.textContent = time;
+      group.appendChild(title);
+
+      byTime[time]
+        .sort((a, b) => a.terrain - b.terrain)
+        .forEach(m => {
+          const item = document.createElement("div");
+          item.className = "hour-item";
+          const catText = m.category ? ` (${m.category})` : "";
+          item.innerHTML = `
+            <span>T${m.terrain}</span> : ${m.teamA} - ${m.teamB}${catText}
+            <span style="float:right;">${scores[m.id] || ""}</span>
+          `;
+          item.addEventListener("click", () => onMatchClick(m));
+          group.appendChild(item);
+        });
+
+      container.appendChild(group);
+    });
+  }
+}
+
+// =========================
+// Équipes
+// =========================
+
+function getAllTeams() {
+  const set = new Set();
+  matches.forEach(m => {
+    if (m.teamA) set.add(m.teamA);
+    if (m.teamB) set.add(m.teamB);
+  });
+  return Array.from(set).filter(n => n && !n.toLowerCase().includes("place") && !n.toLowerCase().includes("finale"));
+}
+
+function renderEquipes() {
+  const catContainer = document.getElementById("equipes-categories");
+  const listContainer = document.getElementById("equipes-list");
+  const detailContainer = document.getElementById("equipe-detail");
+
+  catContainer.innerHTML = "";
+  listContainer.innerHTML = "";
+  detailContainer.innerHTML = "<p>Sélectionnez une équipe pour voir ses matchs.</p>";
+
+  // Pour l’instant, on ne connaît pas les catégories exactes par équipe → on affiche juste "Toutes"
+  const li = document.createElement("li");
+  li.textContent = "Toutes les équipes";
+  li.addEventListener("click", () => {
+    renderEquipesList();
+  });
+  catContainer.appendChild(li);
+
+  renderEquipesList();
+}
+
+function renderEquipesList() {
+  const listContainer = document.getElementById("equipes-list");
+  const detailContainer = document.getElementById("equipe-detail");
+  listContainer.innerHTML = "";
+  detailContainer.innerHTML = "<p>Sélectionnez une équipe pour voir ses matchs.</p>";
+
+  const teams = getAllTeams().sort();
+  teams.forEach(team => {
+    const li = document.createElement("li");
+    li.textContent = team;
+    li.addEventListener("click", () => {
+      renderEquipeDetail(team);
+    });
+    listContainer.appendChild(li);
+  });
+}
+
+function renderEquipeDetail(team) {
+  const detailContainer = document.getElementById("equipe-detail");
+  detailContainer.innerHTML = "";
+
+  const teamMatches = matches.filter(m => m.teamA === team || m.teamB === team);
+  if (teamMatches.length === 0) {
+    detailContainer.innerHTML = "<p>Aucun match trouvé pour cette équipe.</p>";
+    return;
+  }
+
+  const title = document.createElemen
