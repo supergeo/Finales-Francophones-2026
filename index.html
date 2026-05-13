@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
   <header class="header">
     <div class="logo">SPA VOLLEY</div>
@@ -22,13 +23,16 @@
     <button data-section="terrains">Terrains</button>
     <button data-section="infos">Infos</button>
     <button data-section="matchs" class="gold-btn">Matchs</button>
+    <button data-section="scores" class="gold-btn">Scores</button>
   </nav>
 
   <main>
+
     <!-- ACCUEIL -->
     <section id="accueil" class="section active">
       <h2>Bienvenue</h2>
       <p>Finales Francophones Jeunes 2026 – Spa Volley Club.</p>
+
       <div class="grid-buttons">
         <button data-section="samedi" class="card-btn">Horaires samedi</button>
         <button data-section="dimanche" class="card-btn">Horaires dimanche</button>
@@ -37,6 +41,7 @@
         <button data-section="terrains" class="card-btn">Terrains</button>
         <button data-section="infos" class="card-btn">Infos</button>
         <button data-section="matchs" class="card-btn gold-btn">Matchs</button>
+        <button data-section="scores" class="card-btn gold-btn">Tableau des scores</button>
       </div>
     </section>
 
@@ -48,13 +53,20 @@
       <button id="encoder-score" class="gold-btn hidden">Encoder un score</button>
     </section>
 
-    <!-- Autres sections (samedi, dimanche, etc.) -->
+    <!-- SCORES -->
+    <section id="scores" class="section">
+      <h2>Tableau des scores</h2>
+      <div id="scores-list" class="match-list"></div>
+    </section>
+
+    <!-- AUTRES SECTIONS -->
     <section id="samedi" class="section"><h2>Horaires samedi</h2><div id="samedi-list"></div></section>
     <section id="dimanche" class="section"><h2>Horaires dimanche</h2><div id="dimanche-list"></div></section>
     <section id="equipes" class="section"><h2>Équipes</h2><div id="equipes-buttons"></div><div id="equipes-result"></div></section>
     <section id="categories" class="section"><h2>Catégories</h2><div id="categories-list"></div></section>
     <section id="terrains" class="section"><h2>Terrains</h2><div id="terrains-list"></div></section>
     <section id="infos" class="section"><h2>Infos</h2><div id="infos-list"></div></section>
+
   </main>
 
   <!-- MODAL ADMIN -->
@@ -71,7 +83,7 @@
     </div>
   </div>
 
-  <!-- FORMULAIRE SCORE -->
+  <!-- MODAL SCORE -->
   <div id="score-modal" class="modal hidden">
     <div class="modal-content">
       <h3>Encoder un score</h3>

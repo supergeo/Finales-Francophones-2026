@@ -13,32 +13,28 @@ const dimancheMatches = [
   { time: "19h30", terrain: "T1/T2", teams: "Finale U19 F" }
 ];
 
-// Tous les matchs dans l’ordre
 const allMatches = [...samediMatches, ...dimancheMatches];
 
 /********************************************
  * SYSTÈME DE SCORES
  ********************************************/
-let scores = []; // { match, scoreA, scoreB, time }
+let scores = [];
 
-/** Vérifie si un match a déjà un score */
 function hasScore(match) {
   return scores.some(s => s.match === match);
 }
 
-/** Match en cours = premier match sans score */
 function getMatchEnCours() {
   return allMatches.find(m => !hasScore(m)) || null;
 }
 
-/** Match suivant = deuxième match sans score */
 function getMatchSuivant() {
   const remaining = allMatches.filter(m => !hasScore(m));
   return remaining.length > 1 ? remaining[1] : null;
 }
 
 /********************************************
- * AFFICHAGE PAGE MATCHS
+ * AFFICHAGE MATCHS
  ********************************************/
 function renderMatchs() {
   const contEnCours = document.getElementById("matchs-en-cours");
@@ -77,7 +73,7 @@ function renderMatchs() {
 }
 
 /********************************************
- * AFFICHAGE PAGE SCORES
+ * AFFICHAGE SCORES
  ********************************************/
 function renderScores() {
   const cont = document.getElementById("scores-list");
@@ -101,7 +97,7 @@ function renderScores() {
 }
 
 /********************************************
- * NAVIGATION ENTRE PAGES
+ * NAVIGATION
  ********************************************/
 const navButtons = document.querySelectorAll("nav button, .card-btn");
 const sections = document.querySelectorAll(".section");
@@ -120,7 +116,7 @@ navButtons.forEach(btn => {
 });
 
 /********************************************
- * ADMIN + ENCODAGE SCORE
+ * ADMIN + SCORE
  ********************************************/
 const adminModal = document.getElementById("admin-modal");
 const adminCodeInput = document.getElementById("admin-code");
@@ -139,7 +135,6 @@ const encoderBtn = document.getElementById("encoder-score");
 
 let matchToScore = null;
 
-// Ouvrir popup admin
 encoderBtn.addEventListener("click", () => {
   adminModal.classList.remove("hidden");
   adminCodeInput.value = "";
@@ -147,12 +142,10 @@ encoderBtn.addEventListener("click", () => {
   adminCodeInput.focus();
 });
 
-// Annuler admin
 adminCancel.addEventListener("click", () => {
   adminModal.classList.add("hidden");
 });
 
-// Valider code admin
 adminValidate.addEventListener("click", () => {
   if (adminCodeInput.value === "175") {
     adminModal.classList.add("hidden");
@@ -174,7 +167,6 @@ adminValidate.addEventListener("click", () => {
   }
 });
 
-// Enregistrer score
 scoreSave.addEventListener("click", () => {
   const a = scoreA.value.trim();
   const b = scoreB.value.trim();
@@ -196,7 +188,6 @@ scoreSave.addEventListener("click", () => {
   renderScores();
 });
 
-// Fermer score
 scoreClose.addEventListener("click", () => {
   scoreModal.classList.add("hidden");
 });
