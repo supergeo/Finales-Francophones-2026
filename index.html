@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Finales Francophones Spa 2026</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 
@@ -31,203 +31,154 @@
     </div>
   </main>
 
-  <!-- MATCHS SAMEDI (par terrain) -->
+  <!-- MATCHS SAMEDI -->
   <section id="matchs-samedi" class="section">
     <div class="section-header">
       <button class="back-btn" data-section="home">← Accueil</button>
       <h2>Matchs • Samedi</h2>
     </div>
+
     <div class="terrains-grid">
-      <!-- T1 à T8 -->
-      ${[1,2,3,4,5,6,7,8].map(t => `
+
       <div class="terrain-card">
         <div class="terrain-header">
-          <span>Terrain ${t}</span>
-          <button class="edit-terrain" data-terrain="samedi-t${t}">✏️</button>
+          <span>Terrain 1</span>
+          <button class="edit-terrain" data-terrain="samedi-t1">✏️</button>
         </div>
-        <div id="samedi-t${t}" class="terrain-content"></div>
-      </div>`).join('')}
+        <div id="samedi-t1" class="terrain-content"></div>
+      </div>
+
+      <div class="terrain-card">
+        <div class="terrain-header">
+          <span>Terrain 2</span>
+          <button class="edit-terrain" data-terrain="samedi-t2">✏️</button>
+        </div>
+        <div id="samedi-t2" class="terrain-content"></div>
+      </div>
+
+      <div class="terrain-card">
+        <div class="terrain-header">
+          <span>Terrain 3</span>
+          <button class="edit-terrain" data-terrain="samedi-t3">✏️</button>
+        </div>
+        <div id="samedi-t3" class="terrain-content"></div>
+      </div>
+
+      <div class="terrain-card">
+        <div class="terrain-header">
+          <span>Terrain 4</span>
+          <button class="edit-terrain" data-terrain="samedi-t4">✏️</button>
+        </div>
+        <div id="samedi-t4" class="terrain-content"></div>
+      </div>
+
+      <div class="terrain-card">
+        <div class="terrain-header">
+          <span>Terrain 5</span>
+          <button class="edit-terrain" data-terrain="samedi-t5">✏️</button>
+        </div>
+        <div id="samedi-t5" class="terrain-content"></div>
+      </div>
+
+      <div class="terrain-card">
+        <div class="terrain-header">
+          <span>Terrain 6</span>
+          <button class="edit-terrain" data-terrain="samedi-t6">✏️</button>
+        </div>
+        <div id="samedi-t6" class="terrain-content"></div>
+      </div>
+
+      <div class="terrain-card">
+        <div class="terrain-header">
+          <span>Terrain 7</span>
+          <button class="edit-terrain" data-terrain="samedi-t7">✏️</button>
+        </div>
+        <div id="samedi-t7" class="terrain-content"></div>
+      </div>
+
+      <div class="terrain-card">
+        <div class="terrain-header">
+          <span>Terrain 8</span>
+          <button class="edit-terrain" data-terrain="samedi-t8">✏️</button>
+        </div>
+        <div id="samedi-t8" class="terrain-content"></div>
+      </div>
+
     </div>
   </section>
 
-  <!-- MATCHS DIMANCHE (par terrain) -->
+  <!-- MATCHS DIMANCHE -->
   <section id="matchs-dimanche" class="section">
     <div class="section-header">
       <button class="back-btn" data-section="home">← Accueil</button>
       <h2>Matchs • Dimanche</h2>
     </div>
+
     <div class="terrains-grid">
-      ${[1,2,3,4,5,6,7,8].map(t => `
+
       <div class="terrain-card">
         <div class="terrain-header">
-          <span>Terrain ${t}</span>
-          <button class="edit-terrain" data-terrain="dimanche-t${t}">✏️</button>
+          <span>Terrain 1</span>
+          <button class="edit-terrain" data-terrain="dimanche-t1">✏️</button>
         </div>
-        <div id="dimanche-t${t}" class="terrain-content"></div>
-      </div>`).join('')}
-    </div>
-  </section>
-
-  <!-- SCORES -->
-  <section id="scores" class="section">
-    <div class="section-header">
-      <button class="back-btn" data-section="home">← Accueil</button>
-      <h2>Tableau des scores</h2>
-    </div>
-    <div id="scores-list" class="scores-list"></div>
-  </section>
-
-  <!-- CATEGORIES -->
-  <section id="categories" class="section">
-    <div class="section-header">
-      <button class="back-btn" data-section="home">← Accueil</button>
-      <h2>Catégories</h2>
-    </div>
-    <div class="categories-grid">
-      <button class="cat-btn" data-section="cat-u11">U11</button>
-      <button class="cat-btn" data-section="cat-u13">U13</button>
-      <button class="cat-btn" data-section="cat-u15">U15</button>
-      <button class="cat-btn" data-section="cat-u17">U17</button>
-      <button class="cat-btn" data-section="cat-u19">U19</button>
-    </div>
-  </section>
-
-  <!-- PAGES CATEGORIES (contenu dynamique) -->
-  ${["u11","u13","u15","u17","u19"].map(c => `
-  <section id="cat-${c}" class="section">
-    <div class="section-header">
-      <button class="back-btn" data-section="categories">← Catégories</button>
-      <h2>Catégorie ${c.toUpperCase()}</h2>
-    </div>
-    <div class="sort-bar">
-      <button class="sort-btn active" data-cat="${c.toUpperCase()}" data-sort="heure">Par heure</button>
-      <button class="sort-btn" data-cat="${c.toUpperCase()}" data-sort="terrain">Par terrain</button>
-    </div>
-    <div id="cat-${c}-content" class="cat-content"></div>
-  </section>`).join('')}
-
-  <!-- INFOS -->
-  <section id="infos" class="section">
-    <div class="section-header">
-      <button class="back-btn" data-section="home">← Accueil</button>
-      <h2>Infos</h2>
-    </div>
-    <div class="infos-content">
-      <p><strong>Lieu :</strong> Centre ADEPS La Fraineuse, Avenue Amédée Hesse 39, 4900 Spa</p>
-      <p><strong>Dates :</strong> Samedi 16 mai 2026 & Dimanche 17 mai 2026</p>
-      <p><strong>Organisation :</strong> Finales Francophones – Volley Wallonie-Bruxelles – Spa Volley Club</p>
-      <p><strong>Terrains :</strong> Hall 1 : T1–T2 • Hall 2 : T3–T5 • Hall ADEPS : T6–T8</p>
-    </div>
-  </section>
-
-  <!-- HALL 1 -->
-  <section id="hall1" class="section">
-    <div class="section-header">
-      <button class="back-btn" data-section="home">← Accueil</button>
-      <h2>Hall 1 • T1 & T2</h2>
-    </div>
-    <div class="tabs-bar">
-      <button class="tab-btn hall-tab active" data-hall="hall1" data-day="samedi">Samedi</button>
-      <button class="tab-btn hall-tab" data-hall="hall1" data-day="dimanche">Dimanche</button>
-    </div>
-    <div class="sort-bar">
-      <button class="sort-btn-hall active" data-hall="hall1" data-sort="heure">Par heure</button>
-      <button class="sort-btn-hall" data-hall="hall1" data-sort="terrain">Par terrain</button>
-    </div>
-    <div id="hall1-content" class="hall-content"></div>
-  </section>
-
-  <!-- HALL 2 -->
-  <section id="hall2" class="section">
-    <div class="section-header">
-      <button class="back-btn" data-section="home">← Accueil</button>
-      <h2>Hall 2 • T3, T4 & T5</h2>
-    </div>
-    <div class="tabs-bar">
-      <button class="tab-btn hall-tab active" data-hall="hall2" data-day="samedi">Samedi</button>
-      <button class="tab-btn hall-tab" data-hall="hall2" data-day="dimanche">Dimanche</button>
-    </div>
-    <div class="sort-bar">
-      <button class="sort-btn-hall active" data-hall="hall2" data-sort="heure">Par heure</button>
-      <button class="sort-btn-hall" data-hall="hall2" data-sort="terrain">Par terrain</button>
-    </div>
-    <div id="hall2-content" class="hall-content"></div>
-  </section>
-
-  <!-- HALL ADEPS -->
-  <section id="hall-adeps" class="section">
-    <div class="section-header">
-      <button class="back-btn" data-section="home">← Accueil</button>
-      <h2>Hall ADEPS • T6, T7 & T8</h2>
-    </div>
-    <div class="tabs-bar">
-      <button class="tab-btn hall-tab active" data-hall="hall-adeps" data-day="samedi">Samedi</button>
-      <button class="tab-btn hall-tab" data-hall="hall-adeps" data-day="dimanche">Dimanche</button>
-    </div>
-    <div class="sort-bar">
-      <button class="sort-btn-hall active" data-hall="hall-adeps" data-sort="heure">Par heure</button>
-      <button class="sort-btn-hall" data-hall="hall-adeps" data-sort="terrain">Par terrain</button>
-    </div>
-    <div id="hall-adeps-content" class="hall-content"></div>
-  </section>
-
-  <!-- EQUIPES -->
-  <section id="equipes" class="section">
-    <div class="section-header">
-      <button class="back-btn" data-section="home">← Accueil</button>
-      <h2>Équipes</h2>
-    </div>
-    <div class="equipes-layout">
-      <div class="equipes-cats">
-        <h3>Catégories</h3>
-        <ul id="equipes-categories"></ul>
+        <div id="dimanche-t1" class="terrain-content"></div>
       </div>
-      <div class="equipes-list-wrapper">
-        <h3>Équipes</h3>
-        <ul id="equipes-list"></ul>
+
+      <div class="terrain-card">
+        <div class="terrain-header">
+          <span>Terrain 2</span>
+          <button class="edit-terrain" data-terrain="dimanche-t2">✏️</button>
+        </div>
+        <div id="dimanche-t2" class="terrain-content"></div>
       </div>
-      <div class="equipe-detail-wrapper">
-        <h3>Détail équipe</h3>
-        <div id="equipe-detail"></div>
+
+      <div class="terrain-card">
+        <div class="terrain-header">
+          <span>Terrain 3</span>
+          <button class="edit-terrain" data-terrain="dimanche-t3">✏️</button>
+        </div>
+        <div id="dimanche-t3" class="terrain-content"></div>
       </div>
+
+      <div class="terrain-card">
+        <div class="terrain-header">
+          <span>Terrain 4</span>
+          <button class="edit-terrain" data-terrain="dimanche-t4">✏️</button>
+        </div>
+        <div id="dimanche-t4" class="terrain-content"></div>
+      </div>
+
+      <div class="terrain-card">
+        <div class="terrain-header">
+          <span>Terrain 5</span>
+          <button class="edit-terrain" data-terrain="dimanche-t5">✏️</button>
+        </div>
+        <div id="dimanche-t5" class="terrain-content"></div>
+      </div>
+
+      <div class="terrain-card">
+        <div class="terrain-header">
+          <span>Terrain 6</span>
+          <button class="edit-terrain" data-terrain="dimanche-t6">✏️</button>
+        </div>
+        <div id="dimanche-t6" class="terrain-content"></div>
+      </div>
+
+      <div class="terrain-card">
+        <div class="terrain-header">
+          <span>Terrain 7</span>
+          <button class="edit-terrain" data-terrain="dimanche-t7">✏️</button>
+        </div>
+        <div id="dimanche-t7" class="terrain-content"></div>
+      </div>
+
+      <div class="terrain-card">
+        <div class="terrain-header">
+          <span>Terrain 8</span>
+          <button class="edit-terrain" data-terrain="dimanche-t8">✏️</button>
+        </div>
+        <div id="dimanche-t8" class="terrain-content"></div>
+      </div>
+
     </div>
   </section>
-
-  <!-- MODAL ADMIN -->
-  <div id="admin-modal" class="modal hidden">
-    <div class="modal-content">
-      <h3>Accès encodage score</h3>
-      <p>Entrez le code admin :</p>
-      <input type="password" id="admin-code" placeholder="Code" />
-      <div id="admin-error" class="error-msg"></div>
-      <div class="modal-actions">
-        <button id="admin-cancel">Annuler</button>
-        <button id="admin-validate">Valider</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL SCORE -->
-  <div id="score-modal" class="modal hidden">
-    <div class="modal-content">
-      <h3>Encoder le score</h3>
-      <p id="score-match"></p>
-      <select id="score-select">
-        <option value="">-- Choisir un score --</option>
-        <option value="0-0">0 - 0</option>
-        <option value="1-1">1 - 1</option>
-        <option value="2-0">2 - 0</option>
-        <option value="0-2">0 - 2</option>
-        <option value="2-1">2 - 1</option>
-        <option value="1-2">1 - 2</option>
-      </select>
-      <div class="modal-actions">
-        <button id="score-close">Fermer</button>
-        <button id="score-save">Enregistrer</button>
-      </div>
-    </div>
-  </div>
-
-  <script src="script.js" defer></script>
-</body>
-</html>
