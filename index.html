@@ -339,6 +339,74 @@
       <button class="sort-btn-hall active" data-hall="hall-adeps" data-sort="heure">Par heure</button>
       <button class="sort-btn-hall" data-hall="hall-adeps" data-sort="terrain">Par terrain</button>
     </div>
+<!-- ÉQUIPES -->
+  <section id="equipes" class="section">
+    <div class="section-header">
+      <button class="back-btn" data-section="home">← Accueil</button>
+      <h2>Équipes</h2>
+    </div>
 
+    <div class="equipes-layout">
+      <div class="equipes-cats">
+        <h3>Catégories</h3>
+        <ul id="equipes-categories"></ul>
+      </div>
+
+      <div class="equipes-list-wrapper">
+        <h3>Équipes</h3>
+        <ul id="equipes-list"></ul>
+      </div>
+
+      <div class="equipe-detail-wrapper">
+        <h3>Détail équipe</h3>
+        <div id="equipe-detail"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL ADMIN -->
+  <div id="admin-modal" class="modal hidden">
+    <div class="modal-content">
+      <h3>Accès encodage score</h3>
+      <p>Entrez le code admin :</p>
+      <input type="password" id="admin-code" placeholder="Code">
+      <div id="admin-error" class="error-msg"></div>
+
+      <div class="modal-actions">
+        <button id="admin-cancel">Annuler</button>
+        <button id="admin-validate">Valider</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL SCORE -->
+  <div id="score-modal" class="modal hidden">
+    <div class="modal-content">
+      <h3>Encoder le score</h3>
+      <p id="score-match"></p>
+
+      <select id="score-select">
+        <option value="">-- Choisir un score --</option>
+        <option value="0-0">0 - 0</option>
+        <option value="1-1">1 - 1</option>
+        <option value="2-0">2 - 0</option>
+        <option value="0-2">0 - 2</option>
+        <option value="2-1">2 - 1</option>
+        <option value="1-2">1 - 2</option>
+      </select>
+
+      <div class="modal-actions">
+        <button id="score-close">Fermer</button>
+        <button id="score-save">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT -->
+  <script src="script.js?v=3" defer></script>
+
+</body>
+</html>
     <div id="hall-adeps-content" class="hall-content"></div>
   </section>
+  
