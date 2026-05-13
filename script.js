@@ -1,51 +1,108 @@
-// --- Données matches (extraits des PDF, simplifiés) ---
-
+/********************************************
+ * DONNÉES MATCHES
+ ********************************************/
 const samediMatches = [
-  { time: "9h00", terrain: "T1", teams: "Waremme - Chaumont", extra: "Hall 1" },
-  { time: "9h00", terrain: "T2", teams: "Nalinnes - Le Roux", extra: "Hall 1" },
-  { time: "9h00", terrain: "T3", teams: "Thimister - Romedenne", extra: "Hall 2" },
-  { time: "9h00", terrain: "T4", teams: "Tchalou - BEVC", extra: "Hall 2" },
-  { time: "9h00", terrain: "T5", teams: "Tchalou - Waremme", extra: "Hall 2" },
-  { time: "9h00", terrain: "T6", teams: "Nalinnes - F Uccle", extra: "Hall ADEPS" },
-  { time: "9h00", terrain: "T7", teams: "Jemeppe - Waremme", extra: "Hall ADEPS" },
-  { time: "9h00", terrain: "T8", teams: "Chaumont - Romedenne", extra: "Hall ADEPS" },
+  { time: "9h00", terrain: "T1", teams: "Waremme - Chaumont" },
   { time: "10h15", terrain: "T1", teams: "Nalinnes - Waremme" },
-  { time: "10h15", terrain: "T2", teams: "Le Roux - Chaumont" },
-  { time: "11h30", terrain: "T1", teams: "Chaumont - Nalinnes" },
-  { time: "11h30", terrain: "T2", teams: "Waremme - Le Roux" },
-  { time: "15h30", terrain: "T1/T2", teams: "Finale U17", extra: "T1-T2 central" },
-  { time: "18h00", terrain: "T1/T2", teams: "3e place U19G" },
-  { time: "19h30", terrain: "T1/T2", teams: "Finale U19G" }
+  { time: "15h30", terrain: "T1/T2", teams: "Finale U17" }
 ];
 
 const dimancheMatches = [
-  { time: "9h00", terrain: "T1", teams: "Thimister - Limal", extra: "Hall 1" },
-  { time: "9h00", terrain: "T2", teams: "Gedinne - Tchalou", extra: "Hall 1" },
-  { time: "9h00", terrain: "T3", teams: "Waremme - Chaumont", extra: "Hall 2" },
-  { time: "9h00", terrain: "T5", teams: "Tchalou - Ciney", extra: "Hall 2" },
-  { time: "9h00", terrain: "T6", teams: "Waremme - Namur", extra: "Hall ADEPS" },
-  { time: "9h00", terrain: "T7", teams: "Chaumont - La Louvière", extra: "Hall ADEPS" },
-  { time: "9h00", terrain: "T8", teams: "Bertrix - S Eupen", extra: "Hall ADEPS" },
+  { time: "9h00", terrain: "T3", teams: "Waremme - Chaumont" },
   { time: "15h00", terrain: "T1/T2", teams: "Finale U15 F" },
-  { time: "17h00", terrain: "T1/T2", teams: "Finale U17 G" },
   { time: "19h30", terrain: "T1/T2", teams: "Finale U19 F" }
 ];
 
-// --- Catégories ---
-const categories = [
-  { label: "Pupilles U11 Garçons", filet: "2,10 m", matchs: 6 },
-  { label: "Min U13 Filles", filet: "2,10 m", matchs: 11 },
-  { label: "Cadets U15 Garçons", filet: "2,24 m", matchs: 10 },
-  { label: "Scol U17 Filles", filet: "2,18 m", matchs: 11 },
-  { label: "Juniors U19 Garçons", filet: "2,43 m", matchs: 11 },
-  { label: "Pupilles U11 Filles", filet: "2,10 m", matchs: 11 },
-  { label: "Min U13 Garçons", filet: "2,14 m", matchs: 11 },
-  { label: "Cadettes U15 Filles", filet: "2,14 m", matchs: 11 },
-  { label: "Scol U17 Garçons", filet: "2,35 m", matchs: 14 },
-  { label: "Juniors U19 Filles", filet: "2,24 m", matchs: 11 }
-];
+// Tous les matchs dans l’ordre
+const allMatches = [...samediMatches, ...dimancheMatches];
 
-// --- Navigation ---
+/********************************************
+ * SYSTÈME DE SCORES
+ ********************************************/
+let scores = []; // { match, scoreA, scoreB, time }
+
+/** Vérifie si un match a déjà un score */
+function hasScore(match) {
+  return scores.some(s => s.match === match);
+}
+
+/** Match en cours = premier match sans score */
+function getMatchEnCours() {
+  return allMatches.find(m => !hasScore(m)) || null;
+}
+
+/** Match suivant = deuxième match sans score */
+function getMatchSuivant() {
+  const remaining = allMatches.filter(m => !hasScore(m));
+  return remaining.length > 1 ? remaining[1] : null;
+}
+
+/********************************************
+ * AFFICHAGE PAGE MATCHS
+ ********************************************/
+function renderMatchs() {
+  const contEnCours = document.getElementById("matchs-en-cours");
+  const contSuivants = document.getElementById("matchs-suivants");
+  const btnScore = document.getElementById("encoder-score");
+
+  const enCours = getMatchEnCours();
+  const suivant = getMatchSuivant();
+
+  contEnCours.innerHTML = "<h3>Match en cours</h3>";
+  contSuivants.innerHTML = "<h3>Match à suivre</h3>";
+
+  if (!enCours) {
+    contEnCours.innerHTML += "<p>Aucun match en cours.</p>";
+    btnScore.classList.add("hidden");
+  } else {
+    contEnCours.innerHTML += `
+      <div class="match-card">
+        <div class="match-teams">${enCours.teams}</div>
+        <div class="match-time">${enCours.time} – ${enCours.terrain}</div>
+      </div>
+    `;
+    btnScore.classList.remove("hidden");
+  }
+
+  if (!suivant) {
+    contSuivants.innerHTML += "<p>Aucun match à suivre.</p>";
+  } else {
+    contSuivants.innerHTML += `
+      <div class="match-card">
+        <div class="match-teams">${suivant.teams}</div>
+        <div class="match-time">${suivant.time} – ${suivant.terrain}</div>
+      </div>
+    `;
+  }
+}
+
+/********************************************
+ * AFFICHAGE PAGE SCORES
+ ********************************************/
+function renderScores() {
+  const cont = document.getElementById("scores-list");
+  cont.innerHTML = "";
+
+  if (scores.length === 0) {
+    cont.innerHTML = "<p>Aucun score encodé pour le moment.</p>";
+    return;
+  }
+
+  scores.forEach(s => {
+    cont.innerHTML += `
+      <div class="match-card">
+        <div class="match-teams">${s.match.teams}</div>
+        <div class="match-time">${s.match.time} – ${s.match.terrain}</div>
+        <div class="match-score">${s.scoreA} - ${s.scoreB}</div>
+        <div class="match-extra">Encodé à ${s.time}</div>
+      </div>
+    `;
+  });
+}
+
+/********************************************
+ * NAVIGATION ENTRE PAGES
+ ********************************************/
 const navButtons = document.querySelectorAll("nav button, .card-btn");
 const sections = document.querySelectorAll(".section");
 
@@ -53,288 +110,93 @@ navButtons.forEach(btn => {
   btn.addEventListener("click", () => {
     const target = btn.getAttribute("data-section");
     if (!target) return;
+
     sections.forEach(sec => sec.classList.remove("active"));
     document.getElementById(target).classList.add("active");
-    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    if (target === "matchs") renderMatchs();
+    if (target === "scores") renderScores();
   });
 });
 
-// --- Rendu des matchs ---
-function renderMatches(list, containerId, filterValue = "") {
-  const container = document.getElementById(containerId);
-  container.innerHTML = "";
-  const filter = filterValue.toLowerCase();
-
-  list
-    .filter(m =>
-      !filter ||
-      m.time.toLowerCase().includes(filter) ||
-      m.terrain.toLowerCase().includes(filter) ||
-      m.teams.toLowerCase().includes(filter)
-    )
-    .forEach(m => {
-      const div = document.createElement("div");
-      div.className = "match-card";
-      div.innerHTML = `
-        <div class="match-time">${m.time} – ${m.terrain}</div>
-        <div class="match-teams">${m.teams}</div>
-        ${m.extra ? `<div class="match-extra">${m.extra}</div>` : ""}
-      `;
-      container.appendChild(div);
-    });
-}
-
-renderMatches(samediMatches, "samedi-list");
-renderMatches(dimancheMatches, "dimanche-list");
-
-document.getElementById("filter-samedi").addEventListener("input", e =>
-  renderMatches(samediMatches, "samedi-list", e.target.value)
-);
-
-document.getElementById("filter-dimanche").addEventListener("input", e =>
-  renderMatches(dimancheMatches, "dimanche-list", e.target.value)
-);
-
-// --- Catégories ---
-const catContainer = document.getElementById("categories-list");
-categories.forEach(c => {
-  const div = document.createElement("div");
-  div.className = "card";
-  div.innerHTML = `
-    <h3>${c.label}</h3>
-    <p>Hauteur de filet : <strong>${c.filet}</strong></p>
-    <p>Nombre de matchs : ${c.matchs}</p>
-  `;
-  catContainer.appendChild(div);
-});
-
-// --- EXTRACTION AUTOMATIQUE DES ÉQUIPES ---
-function extractTeams() {
-  const all = [...samediMatches, ...dimancheMatches];
-  const set = new Set();
-
-  all.forEach(m => {
-    const parts = m.teams.split("-");
-    if (parts.length === 2) {
-      set.add(parts[0].trim());
-      set.add(parts[1].trim());
-    }
-  });
-
-  return Array.from(set).sort();
-}
-
-const equipes = extractTeams();
-const equipesButtons = document.getElementById("equipes-buttons");
-const equipesResult = document.getElementById("equipes-result");
-
-// Boutons d’équipes
-equipes.forEach(eq => {
-  const btn = document.createElement("button");
-  btn.className = "card-btn";
-  btn.textContent = eq;
-  btn.addEventListener("click", () => showEquipe(eq));
-  equipesButtons.appendChild(btn);
-});
-
-// Affichage des matchs d’une équipe
-function showEquipe(eq) {
-  equipesResult.innerHTML = `<h3>Matchs de ${eq}</h3>`;
-  const all = [...samediMatches, ...dimancheMatches];
-  const list = all.filter(m => m.teams.includes(eq));
-
-  if (list.length === 0) {
-    equipesResult.innerHTML += "<p>Aucun match trouvé.</p>";
-    return;
-  }
-
-  list.forEach(m => {
-    const div = document.createElement("div");
-    div.className = "match-card";
-    div.innerHTML = `
-      <div class="match-time">${m.time} – ${m.terrain}</div>
-      <div class="match-teams">${m.teams}</div>
-      ${m.extra ? `<div class="match-extra">${m.extra}</div>` : ""}
-    `;
-    equipesResult.appendChild(div);
-  });
-}
-
-// --- Assistant intelligent ---
-const assistantLog = document.getElementById("assistant-log");
-const assistantInput = document.getElementById("assistant-question");
-const assistantSend = document.getElementById("assistant-send");
-
-function addMsg(type, text) {
-  const div = document.createElement("div");
-  div.className = `msg ${type}`;
-  div.innerHTML = `<span>${text}</span>`;
-  assistantLog.appendChild(div);
-  assistantLog.scrollTop = assistantLog.scrollHeight;
-}
-
-// --- SMART SEARCH AMÉLIORÉ ---
-function smartSearch(query) {
-  const q = query.toLowerCase();
-  const all = [...samediMatches, ...dimancheMatches];
-
-  // Détection équipe
-  const team = equipes.find(e => q.includes(e.toLowerCase()));
-
-  // Détection catégorie
-  const catMatch = q.match(/u\d{2}/);
-  const cat = catMatch ? catMatch[0] : null;
-
-  // Détection finale
-  const isFinale = q.includes("finale");
-
-  // FINALE + CATEGORIE
-  if (isFinale && cat) {
-    return all.filter(m =>
-      m.teams.toLowerCase().includes("finale") &&
-      m.teams.toLowerCase().includes(cat)
-    );
-  }
-
-  // FINALE + EQUIPE
-  if (isFinale && team) {
-    return all.filter(m =>
-      m.teams.toLowerCase().includes("finale") &&
-      m.teams.toLowerCase().includes(team.toLowerCase())
-    );
-  }
-
-  // FINALE seule
-  if (isFinale) {
-    return all.filter(m =>
-      m.teams.toLowerCase().includes("finale")
-    );
-  }
-
-  // Recherche équipe
-  if (team) {
-    return all.filter(m =>
-      m.teams.toLowerCase().includes(team.toLowerCase())
-    );
-  }
-
-  // Recherche terrain
-  const terrains = ["t1","t2","t3","t4","t5","t6","t7","t8"];
-  const terrain = terrains.find(t => q.includes(t));
-  if (terrain) {
-    return all.filter(m =>
-      m.terrain.toLowerCase().includes(terrain)
-    );
-  }
-
-  // Recherche heure
-  const hourMatch = q.match(/\b(\d{1,2}h\d{0,2})\b/);
-  if (hourMatch) {
-    return all.filter(m =>
-      m.time.toLowerCase().includes(hourMatch[1])
-    );
-  }
-
-  return [];
-}
-
-// --- Assistant ---
-function handleAssistantQuestion() {
-  const q = assistantInput.value.trim();
-  if (!q) return;
-  addMsg("user", q);
-  assistantInput.value = "";
-
-  const results = smartSearch(q);
-
-  if (results.length > 0) {
-    if (results.length === 1) {
-      const m = results[0];
-      addMsg("bot", `Je trouve : ${m.teams} à ${m.time} sur ${m.terrain}.`);
-    } else {
-      addMsg("bot", `J’ai trouvé ${results.length} matchs :`);
-      results.forEach(m => {
-        addMsg("bot", `${m.teams} – ${m.time} – ${m.terrain}`);
-      });
-    }
-    return;
-  }
-
-  addMsg(
-    "bot",
-    "Je ne trouve pas directement. Essaie avec une équipe, une catégorie, une finale, un terrain ou une heure."
-  );
-}
-
-assistantSend.addEventListener("click", handleAssistantQuestion);
-assistantInput.addEventListener("keydown", e => {
-  if (e.key === "Enter") handleAssistantQuestion();
-});
-
-// --- Admin ---
-let assistantRules = [];
-let importantMessage = "";
-
-const adminBtn = document.getElementById("admin-btn");
+/********************************************
+ * ADMIN + ENCODAGE SCORE
+ ********************************************/
 const adminModal = document.getElementById("admin-modal");
 const adminCodeInput = document.getElementById("admin-code");
 const adminCancel = document.getElementById("admin-cancel");
 const adminValidate = document.getElementById("admin-validate");
 const adminError = document.getElementById("admin-error");
-const adminPanel = document.getElementById("admin-panel");
-const adminClose = document.getElementById("admin-close");
 
-const adminMessageInput = document.getElementById("admin-message");
-const adminSaveMessage = document.getElementById("admin-save-message");
-const adminKeywordInput = document.getElementById("admin-keyword");
-const adminAnswerInput = document.getElementById("admin-answer");
-const adminSaveAnswer = document.getElementById("admin-save-answer");
-const importantBanner = document.getElementById("important-banner");
+const scoreModal = document.getElementById("score-modal");
+const scoreMatch = document.getElementById("score-match");
+const scoreA = document.getElementById("scoreA");
+const scoreB = document.getElementById("scoreB");
+const scoreSave = document.getElementById("score-save");
+const scoreClose = document.getElementById("score-close");
 
-const ADMIN_CODE = "175";
+const encoderBtn = document.getElementById("encoder-score");
 
-adminBtn.addEventListener("click", () => {
+let matchToScore = null;
+
+// Ouvrir popup admin
+encoderBtn.addEventListener("click", () => {
   adminModal.classList.remove("hidden");
   adminCodeInput.value = "";
   adminError.textContent = "";
   adminCodeInput.focus();
 });
 
+// Annuler admin
 adminCancel.addEventListener("click", () => {
   adminModal.classList.add("hidden");
 });
 
+// Valider code admin
 adminValidate.addEventListener("click", () => {
-  if (adminCodeInput.value === ADMIN_CODE) {
+  if (adminCodeInput.value === "175") {
     adminModal.classList.add("hidden");
-    adminPanel.classList.remove("hidden");
+
+    const enCours = getMatchEnCours();
+    if (!enCours) {
+      alert("Aucun match en cours à encoder.");
+      return;
+    }
+
+    matchToScore = enCours;
+    scoreMatch.textContent = `${matchToScore.teams} – ${matchToScore.time} – ${matchToScore.terrain}`;
+    scoreA.value = "";
+    scoreB.value = "";
+
+    scoreModal.classList.remove("hidden");
   } else {
     adminError.textContent = "Code incorrect.";
   }
 });
 
-adminClose.addEventListener("click", () => {
-  adminPanel.classList.add("hidden");
-});
+// Enregistrer score
+scoreSave.addEventListener("click", () => {
+  const a = scoreA.value.trim();
+  const b = scoreB.value.trim();
 
-// Message important
-adminSaveMessage.addEventListener("click", () => {
-  importantMessage = adminMessageInput.value.trim();
-  if (importantMessage) {
-    importantBanner.textContent = importantMessage;
-    importantBanner.classList.remove("hidden");
-  } else {
-    importantBanner.classList.add("hidden");
+  if (a === "" || b === "") {
+    alert("Veuillez entrer les deux scores.");
+    return;
   }
+
+  scores.push({
+    match: matchToScore,
+    scoreA: a,
+    scoreB: b,
+    time: new Date().toLocaleTimeString()
+  });
+
+  scoreModal.classList.add("hidden");
+  renderMatchs();
+  renderScores();
 });
 
-// Règle assistant
-adminSaveAnswer.addEventListener("click", () => {
-  const keyword = adminKeywordInput.value.trim();
-  const answer = adminAnswerInput.value.trim();
-  if (!keyword || !answer) return;
-  assistantRules.push({ keyword, answer });
-  adminKeywordInput.value = "";
-  adminAnswerInput.value = "";
-  alert("Règle enregistrée pour l’assistant.");
+// Fermer score
+scoreClose.addEventListener("click", () => {
+  scoreModal.classList.add("hidden");
 });
